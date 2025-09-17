@@ -1,9 +1,7 @@
 <template>
   <div style="width: 100vw; height: 100vh; position: relative; background: #000; margin: 0; padding: 0;">
-
-    <h1 style="color: whitesmoke; text-align: center; padding: 40px; margin: 10;">Hello!</h1>
-
-    <div style="width: 100%; height: 100%; position: relative; background: rgba(0,0,255,0.1);">
+    <!-- Prism background component -->
+    <div style="width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: 1;">
       <Prism
         animation-type="rotate"
         :time-scale=".75"
@@ -15,6 +13,11 @@
         :noise="0"
         :glow="1"
       />
+    </div>
+
+    <!-- Router content overlay -->
+    <div style="position: relative; z-index: 10; width: 100%; height: 100%; overflow-y: auto;">
+      <router-view />
     </div>
   </div>
 </template>

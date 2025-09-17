@@ -1,9 +1,8 @@
+<!-- NEEDS: NPM INSTALL OGL -->
+
 <script setup lang="ts">
 import { Mesh, Program, Renderer, Triangle } from 'ogl';
 import { onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue';
-
-// Debug OGL imports
-console.log("OGL imports:", { Mesh, Program, Renderer, Triangle });
 
 type PrismProps = {
   height?: number;
@@ -46,9 +45,7 @@ const containerRef = useTemplateRef('containerRef');
 let cleanup: (() => void) | null = null;
 
 const setup = () => {
-  console.log("Setup function called");
   const container = containerRef.value;
-  console.log("Container element:", container);
   if (!container) {
     console.error("Container ref is null!");
     return;
@@ -445,13 +442,10 @@ const setup = () => {
 };
 
 onMounted(() => {
-  console.log("Prism component mounted");
-  console.log("Container ref:", containerRef.value);
   setup();
 });
 
 onBeforeUnmount(() => {
-  console.log("Prism component unmounted");
   cleanup?.();
 });
 
