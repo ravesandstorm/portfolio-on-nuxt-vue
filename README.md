@@ -1,2 +1,2 @@
 # portfolio-test-vue
-Testing portfolio development using custom background using vuebits prism
+Testing portfolio development using custom background using vuebits prism on Nuxt js framework
