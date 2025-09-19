@@ -36,7 +36,7 @@ defineProps({
 <style scoped>
 .sidebar {
   height: 100vh;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
@@ -48,7 +48,7 @@ defineProps({
 .sidebar-header {
   padding: 2rem 1.5rem 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(15px);
   position: sticky;
   top: 0;
@@ -97,12 +97,12 @@ defineProps({
 
 /* Dark mode */
 .dark .sidebar {
-  background: rgba(42, 42, 42, 0.95);
+  background: rgba(42, 42, 42, 0.25);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .dark .sidebar-header {
-  background: rgba(42, 42, 42, 0.9);
+  background: rgba(42, 42, 42, 0.35);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 

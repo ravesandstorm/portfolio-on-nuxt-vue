@@ -48,7 +48,7 @@ onMounted(() => {
             textAlign="center"
           />
           <SplitText
-            text="AI/ML Engineer and Full Stack Developer"
+            text="AI/ML and Full Stack Developer"
             :delay="80"
             :duration="0.8"
             className="hero-subtitle"
@@ -96,29 +96,25 @@ onMounted(() => {
 
 <style scoped>
 .portfolio {
-  display: flex;
-  min-height: 100vh;
-  position: relative;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  gap: 0;
+  /* makes children able to be 100% tall and scroll independently */
+  height: 100vh;
+  width: 100%;
 }
 
 .main-section {
-  flex: 0 0 70%;
-  padding: 2rem;
   overflow-y: auto;
-  /* position: relative; */
   z-index: 10;
+  height: 100%;
+  position: relative;
 }
 
 .sidebar-section {
-  flex: 0 0 30%;
-  /* position: sticky; */
-  /* position: fixed; */
   top: 80px;
-  height: calc(100vh - 80px);
+  height: 100%;
   overflow-y: auto;
-  right: 0;
-  top: 0;
 }
 
 /* Hero section */
@@ -135,11 +131,11 @@ onMounted(() => {
   max-width: 600px;
 }
 
-.hero-title {
+.hero-title *{
   font-size: 4rem;
   font-weight: 800;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(120deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -204,7 +200,7 @@ onMounted(() => {
 }
 
 /* Dark mode */
-.dark .hero-title {
+.dark .hero-title * {
   background: linear-gradient(135deg, #9f7aea 0%, #ed64a6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

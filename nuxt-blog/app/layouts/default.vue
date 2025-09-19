@@ -3,17 +3,17 @@
     <!-- Prism background -->
     <div class="prism-background">
       <Prism
-        :height="3.5"
-        :baseWidth="5.5"
+        :height="4.5"
+        :baseWidth="7.5"
         animationType="rotate"
-        :glow="1.2"
-        :noise="0.3"
+        :glow="0.75"
+        :noise="0"
         :transparent="true"
-        :scale="4"
-        :hueShift="0.2"
+        :scale="2.5"
+        :hueShift="0"
         :colorFrequency="1.2"
         :bloom="1.5"
-        :timeScale="0.3"
+        :timeScale="0.1"
       />
     </div>
 
@@ -43,7 +43,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-const isDark = ref(false)
+const isDark = ref(true)
 
 onMounted(() => {
   // Check if user has a saved preference

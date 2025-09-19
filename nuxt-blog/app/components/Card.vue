@@ -8,6 +8,11 @@ defineProps({
 })
 
 const isHovered = ref(false)
+const hasError = ref(false)
+function onImgError() {
+  hasError.value = true
+}
+
 </script>
 
 <template>
@@ -18,9 +23,19 @@ const isHovered = ref(false)
     @mouseleave="isHovered = false"
   >
     <div class="image-container">
-      <div class="placeholder-image">
+      <!-- real image (fills the container) -->
+      <img
+        v-if="!hasError"
+        :src="`images/${id}.png`"
+        :alt="title || `project-${id}`"
+        class="card-image"
+        loading="lazy"
+        @error="onImgError"
+      />
+      <div v-else class="placeholder-image">
         <div class="project-number">{{ id }}</div>
       </div>
+
       <div class="card-overlay"></div>
     </div>
     <div class="text-container">
@@ -55,7 +70,7 @@ const isHovered = ref(false)
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-8px) scale(1.08);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   background: rgba(255, 255, 255, 0.95);
 }
@@ -66,6 +81,18 @@ const isHovered = ref(false)
   width: 100%;
   height: 70%;
   overflow: hidden;
+}
+
+.card-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* cover center-crop behavior */
+  display: block;
+  z-index: 0;
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease;
+  opacity: 0.6;
 }
 
 .placeholder-image {
@@ -84,6 +111,10 @@ const isHovered = ref(false)
   font-weight: 700;
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover .card-image {
+  opacity: 1;          /* full visible on hover */
 }
 
 .card:hover .placeholder-image {
@@ -130,7 +161,7 @@ const isHovered = ref(false)
 }
 
 .card:hover .text-container {
-  transform: translateY(-10px);
+  transform: translateY(20px); /* text moves down */
   background: linear-gradient(
     to top,
     rgba(255, 255, 255, 0.98) 0%,
