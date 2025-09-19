@@ -1,3 +1,11 @@
+# to create project
+```sh
+npm create vue@latest
+cd prism
+npm install
+npm run dev
+```
+
 # prism
 
 This template should help get you started developing with Vue 3 in Vite.
