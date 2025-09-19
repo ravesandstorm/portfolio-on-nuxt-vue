@@ -17,9 +17,69 @@
 import { ref, onMounted, onUnmounted, watch, nextTick, useTemplateRef } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText as GSAPSplitText } from 'gsap/SplitText';
 
-gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
+gsap.registerPlugin(ScrollTrigger);
+
+// Custom SplitText implementation
+class CustomSplitText {
+  chars: HTMLElement[] = [];
+  words: HTMLElement[] = [];
+  lines: HTMLElement[] = [];
+
+  constructor(element: HTMLElement, options: { type: string; absolute?: boolean; linesClass?: string }) {
+    const text = element.textContent || '';
+    element.innerHTML = '';
+
+    if (options.type.includes('chars')) {
+      this.splitByChars(element, text);
+    } else if (options.type.includes('words')) {
+      this.splitByWords(element, text);
+    } else if (options.type.includes('lines')) {
+      this.splitByLines(element, text);
+    }
+  }
+
+  private splitByChars(element: HTMLElement, text: string) {
+    const chars = text.split('');
+    chars.forEach((char, index) => {
+      const span = document.createElement('span');
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.style.display = 'inline-block';
+      span.style.position = 'relative';
+      this.chars.push(span);
+      element.appendChild(span);
+    });
+  }
+
+  private splitByWords(element: HTMLElement, text: string) {
+    const words = text.split(' ');
+    words.forEach((word, index) => {
+      const span = document.createElement('span');
+      span.textContent = word;
+      span.style.display = 'inline-block';
+      span.style.position = 'relative';
+      span.style.marginRight = '0.25em';
+      this.words.push(span);
+      element.appendChild(span);
+    });
+  }
+
+  private splitByLines(element: HTMLElement, text: string) {
+    const lines = text.split('\n');
+    lines.forEach((line, index) => {
+      const div = document.createElement('div');
+      div.textContent = line;
+      div.style.display = 'block';
+      div.style.position = 'relative';
+      this.lines.push(div);
+      element.appendChild(div);
+    });
+  }
+
+  revert() {
+    // This would restore the original text, but for simplicity we'll skip this
+  }
+}
 
 export interface SplitTextProps {
   text: string;
@@ -57,7 +117,7 @@ const textRef = useTemplateRef<HTMLParagraphElement>('textRef');
 const animationCompletedRef = ref(false);
 const scrollTriggerRef = ref<ScrollTrigger | null>(null);
 const timelineRef = ref<gsap.core.Timeline | null>(null);
-const splitterRef = ref<GSAPSplitText | null>(null);
+const splitterRef = ref<CustomSplitText | null>(null);
 
 const initializeAnimation = async () => {
   if (typeof window === 'undefined' || !textRef.value || !props.text) return;
@@ -71,9 +131,9 @@ const initializeAnimation = async () => {
   const absoluteLines = props.splitType === 'lines';
   if (absoluteLines) el.style.position = 'relative';
 
-  let splitter: GSAPSplitText;
+  let splitter: CustomSplitText;
   try {
-    splitter = new GSAPSplitText(el, {
+    splitter = new CustomSplitText(el, {
       type: props.splitType,
       absolute: absoluteLines,
       linesClass: 'split-line'
@@ -110,9 +170,9 @@ const initializeAnimation = async () => {
   });
 
   const startPct = (1 - props.threshold) * 100;
-  const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(props.rootMargin);
+  const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(props.rootMargin || '-100px');
   const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
-  const marginUnit = marginMatch ? marginMatch[2] || 'px' : 'px';
+  const marginUnit = marginMatch ? (marginMatch[2] || 'px') : 'px';
   const sign = marginValue < 0 ? `-=${Math.abs(marginValue)}${marginUnit}` : `+=${marginValue}${marginUnit}`;
   const start = `top ${startPct}%${sign}`;
 

@@ -1,59 +1,258 @@
 <script setup>
+import { ref, onMounted } from 'vue'
+
 const { data: posts } = await useAsyncData('posts', () =>
   $fetch('https://jsonplaceholder.typicode.com/posts')
 )
 
-posts.value = posts.value.slice(0, 10)
+posts.value = posts.value.slice(0, 8)
+
+const sidebarOpen = ref(false)
+
+const toggleSidebar = () => {
+  sidebarOpen.value = !sidebarOpen.value
+}
+
+// Close sidebar when clicking outside on mobile
+onMounted(() => {
+  const handleClickOutside = (event) => {
+    if (window.innerWidth <= 1024 && sidebarOpen.value) {
+      const sidebar = document.querySelector('.sidebar')
+      if (sidebar && !sidebar.contains(event.target)) {
+        sidebarOpen.value = false
+      }
+    }
+  }
+
+  document.addEventListener('click', handleClickOutside)
+
+  return () => {
+    document.removeEventListener('click', handleClickOutside)
+  }
+})
 </script>
 
 <template>
-  <div class="home">
-    <h1>My Blog Posts</h1>
-    <div class="grid">
-      <Card
-        v-for="post in posts"
-        :key="post.id"
-        :id="post.id"
-        :title="post.title"
-        :link="`/posts/${post.id}`"
-      />
+  <div class="portfolio">
+    <!-- Main content area (70%) -->
+    <div class="main-section">
+      <!-- Hero section with name -->
+      <section class="hero">
+        <div class="hero-content">
+          <SplitText
+            text="Hi, I'm Your Name"
+            :delay="150"
+            :duration="1"
+            className="hero-title"
+            splitType="chars"
+            textAlign="center"
+          />
+          <SplitText
+            text="Full Stack Developer & Designer"
+            :delay="80"
+            :duration="0.8"
+            className="hero-subtitle"
+            splitType="words"
+            textAlign="center"
+          />
+        </div>
+      </section>
+
+      <!-- About section -->
+      <About />
+
+      <!-- Tech stack -->
+      <TechStack />
+
+      <!-- Social links -->
+      <SocialLinks />
     </div>
+
+    <!-- Sidebar (30%) -->
+    <div class="sidebar-section">
+      <Sidebar :posts="posts" :class="{ open: sidebarOpen }" />
+    </div>
+
+    <!-- Mobile sidebar toggle -->
+    <button
+      class="sidebar-toggle"
+      @click="toggleSidebar"
+      :class="{ active: sidebarOpen }"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </template>
 
 <style scoped>
-.home {
-  padding: 1rem;
+.portfolio {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
 }
 
-h1 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+.main-section {
+  flex: 0 0 70%;
+  padding: 2rem;
+  overflow-y: auto;
+  position: relative;
+  z-index: 10;
+}
+
+.sidebar-section {
+  flex: 0 0 30%;
+  position: sticky;
+  top: 80px;
+  height: calc(100vh - 80px);
+}
+
+/* Hero section */
+.hero {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  color: #2c3e50;
+  margin-bottom: 2rem;
 }
 
-/* Responsive grid */
-.grid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(4, 1fr);
+.hero-content {
+  max-width: 600px;
 }
 
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: #64748b;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* Mobile sidebar toggle */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  z-index: 200;
+  background: rgba(0, 112, 243, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-shadow: 0 4px 20px rgba(0, 112, 243, 0.3);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.sidebar-toggle span {
+  width: 20px;
+  height: 2px;
+  background: white;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.sidebar-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.sidebar-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.sidebar-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Dark mode */
+.dark .hero-title {
+  background: linear-gradient(135deg, #9f7aea 0%, #ed64a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .hero-subtitle {
+  color: #a0aec0;
+}
+
+.dark .sidebar-toggle {
+  background: rgba(159, 122, 234, 0.9);
+  box-shadow: 0 4px 20px rgba(159, 122, 234, 0.3);
+}
+
+/* Responsive design */
 @media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+  .portfolio {
+    flex-direction: column;
+  }
+
+  .main-section {
+    flex: 1;
+    padding: 1.5rem;
+  }
+
+  .sidebar-section {
+    display: none;
+  }
+
+  .sidebar-toggle {
+    display: flex;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
   }
 }
 
-@media (max-width: 640px) {
-  .grid {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .main-section {
+    padding: 1rem;
+  }
+
+  .hero {
+    min-height: 50vh;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
   }
 }
 
-/* Dark mode title */
-.dark h1 {
-  color: #c3c3c3;
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
 }
 </style>
