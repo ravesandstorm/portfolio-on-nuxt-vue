@@ -5,7 +5,7 @@ const { data: posts } = await useAsyncData('posts', () =>
   $fetch('https://jsonplaceholder.typicode.com/posts')
 )
 
-posts.value = posts.value.slice(0, 8)
+posts.value = posts.value.slice(0, 10)
 
 const sidebarOpen = ref(false)
 
@@ -40,7 +40,7 @@ onMounted(() => {
       <section class="hero">
         <div class="hero-content">
           <SplitText
-            text="Hi, I'm Your Name"
+            text="Hi, I'm Satvik!"
             :delay="150"
             :duration="1"
             className="hero-title"
@@ -48,10 +48,18 @@ onMounted(() => {
             textAlign="center"
           />
           <SplitText
-            text="Full Stack Developer & Designer"
+            text="AI/ML Engineer and Full Stack Developer"
             :delay="80"
             :duration="0.8"
             className="hero-subtitle"
+            splitType="words"
+            textAlign="center"
+          />
+          <SplitText
+            text="Check out my projects! --->"
+            :delay="200"
+            :duration="2"
+            className="hero-checkprojects"
             splitType="words"
             textAlign="center"
           />
@@ -91,21 +99,26 @@ onMounted(() => {
   display: flex;
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 .main-section {
   flex: 0 0 70%;
   padding: 2rem;
   overflow-y: auto;
-  position: relative;
+  /* position: relative; */
   z-index: 10;
 }
 
 .sidebar-section {
   flex: 0 0 30%;
-  position: sticky;
+  /* position: sticky; */
+  /* position: fixed; */
   top: 80px;
   height: calc(100vh - 80px);
+  overflow-y: auto;
+  right: 0;
+  top: 0;
 }
 
 /* Hero section */
@@ -134,10 +147,17 @@ onMounted(() => {
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
-  color: #64748b;
-  font-weight: 400;
+  font-size: 2.5rem;
+  color: #576579;
+  font-weight: 600;
   margin: 0;
+}
+
+.hero-checkprojects {
+  font-size: 2rem;
+  color: #3e4856;
+  font-weight: 500;
+  margin: 10px;
 }
 
 /* Mobile sidebar toggle */
@@ -192,7 +212,13 @@ onMounted(() => {
 }
 
 .dark .hero-subtitle {
-  color: #a0aec0;
+  color: #3d4247;
+  -webkit-text-stroke: 0.35px white;
+}
+
+.dark .hero-checkprojects {
+  color: #3f454d;
+  -webkit-text-stroke: 0.25px white;
 }
 
 .dark .sidebar-toggle {
