@@ -1,0 +1,17 @@
+{
+  "id": 8,
+  "title": "Fitness Tracking App",
+  "description": "A comprehensive fitness tracking application that monitors workouts, nutrition, and health metrics. Built with React Native and Firebase, it provides personalized workout plans, progress tracking, and social features for motivation.",
+  "image": "/images/8.png",
+  "technologies": ["React Native", "Firebase", "Redux", "Expo", "Chart.js"],
+  "github": "https://github.com/username/fitness-tracker",
+  "demo": "https://fitness-tracker-demo.expo.dev",
+  "features": [
+    "Workout tracking and planning",
+    "Nutrition and calorie monitoring",
+    "Progress visualization",
+    "Social challenges and leaderboards",
+    "Wearable device integration",
+    "Personalized recommendations"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": 1,
+  "title": "E-Commerce Platform",
+  "description": "A full-stack e-commerce platform built with Vue.js and Node.js. Features include user authentication, product catalog, shopping cart, payment integration, and admin dashboard. The platform supports multiple payment methods and provides real-time inventory management.",
+  "image": "/images/1.png",
+  "technologies": ["Vue.js", "Node.js", "MongoDB", "Express", "Stripe API"],
+  "github": "https://github.com/username/ecommerce-platform",
+  "demo": "https://ecommerce-demo.vercel.app",
+  "features": [
+    "User authentication and authorization",
+    "Product catalog with search and filtering",
+    "Shopping cart and wishlist functionality",
+    "Secure payment processing with Stripe",
+    "Admin dashboard for inventory management",
+    "Responsive design for mobile and desktop"
+  ]
+}

@@ -1,11 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-const { data: posts } = await useAsyncData('posts', () =>
-  $fetch('https://jsonplaceholder.typicode.com/posts')
+// Load projects from API
+const { data: projects } = await useAsyncData('projects', () =>
+  $fetch('/api/projects')
 )
-
-posts.value = posts.value.slice(0, 10)
 
 const sidebarOpen = ref(false)
 
@@ -41,7 +40,7 @@ onMounted(() => {
         <div class="hero-content">
           <SplitText
             text="Hi, I'm Satvik!"
-            :delay="150"
+            :delay="100"
             :duration="1"
             className="hero-title"
             splitType="chars"
@@ -78,7 +77,7 @@ onMounted(() => {
 
     <!-- Sidebar (30%) -->
     <div class="sidebar-section">
-      <Sidebar :posts="posts" :class="{ open: sidebarOpen }" />
+      <Sidebar :posts="projects" :class="{ open: sidebarOpen }" />
     </div>
 
     <!-- Mobile sidebar toggle -->
@@ -208,13 +207,11 @@ onMounted(() => {
 }
 
 .dark .hero-subtitle {
-  color: #3d4247;
-  -webkit-text-stroke: 0.35px white;
+  color: #c8c8c8;
 }
 
 .dark .hero-checkprojects {
-  color: #3f454d;
-  -webkit-text-stroke: 0.25px white;
+  color: #c9c9c9;
 }
 
 .dark .sidebar-toggle {

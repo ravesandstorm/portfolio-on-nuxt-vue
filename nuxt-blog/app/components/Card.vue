@@ -161,7 +161,7 @@ function onImgError() {
 }
 
 .card:hover .text-container {
-  transform: translateY(20px); /* text moves down */
+  transform: translateY(10px); /* text moves down */
   background: linear-gradient(
     to top,
     rgba(255, 255, 255, 0.98) 0%,

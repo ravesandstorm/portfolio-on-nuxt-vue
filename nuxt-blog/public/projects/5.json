@@ -1,0 +1,17 @@
+{
+  "id": 5,
+  "title": "AI Chat Assistant",
+  "description": "An intelligent chat assistant powered by machine learning algorithms. Built with Node.js and TensorFlow.js, it can understand natural language, provide contextual responses, and learn from user interactions to improve over time.",
+  "image": "/images/5.png",
+  "technologies": ["Node.js", "TensorFlow.js", "Socket.io", "MongoDB", "Express"],
+  "github": "https://github.com/username/ai-chat-assistant",
+  "demo": "https://ai-chat-demo.onrender.com",
+  "features": [
+    "Natural language processing",
+    "Contextual conversation memory",
+    "Machine learning-based responses",
+    "Real-time chat interface",
+    "User preference learning",
+    "Multi-language support"
+  ]
+}

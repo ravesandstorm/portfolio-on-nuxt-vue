@@ -13,7 +13,7 @@
         :hueShift="0"
         :colorFrequency="1.2"
         :bloom="1.5"
-        :timeScale="0.1"
+        :timeScale="0.25"
       />
     </div>
 
@@ -21,11 +21,11 @@
     <header class="app-header">
       <div class="header-content">
         <NuxtLink to="/" class="logo">
-          <span class="logo-text">Portfolio</span>
+          <span class="logo-text">Satvik's Portfolio</span>
         </NuxtLink>
         <div class="header-actions">
           <button @click="toggleDarkMode" class="theme-toggle">
-            {{ isDark ? '🌞' : '🌙' }}
+            {{ isDark ? '☀️' : '🌙' }}
           </button>
         </div>
       </div>
@@ -75,7 +75,7 @@ function updateHtmlClass() {
 
 .prism-background {
   position: fixed;
-  top: 0;
+  top: 10%;
   left: 0;
   width: 100%;
   height: 100%;

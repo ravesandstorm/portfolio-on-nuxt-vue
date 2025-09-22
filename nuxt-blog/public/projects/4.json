@@ -1,0 +1,17 @@
+{
+  "id": 4,
+  "title": "Social Media Analytics",
+  "description": "A powerful social media analytics platform that tracks engagement metrics across multiple platforms. Built with Python and React, it provides insights into audience behavior, content performance, and growth trends with interactive dashboards.",
+  "image": "/images/4.png",
+  "technologies": ["React", "Python", "FastAPI", "PostgreSQL", "D3.js"],
+  "github": "https://github.com/username/social-analytics",
+  "demo": "https://social-analytics-demo.herokuapp.com",
+  "features": [
+    "Multi-platform social media integration",
+    "Real-time engagement tracking",
+    "Audience demographics analysis",
+    "Content performance metrics",
+    "Automated reporting",
+    "Competitor analysis tools"
+  ]
+}

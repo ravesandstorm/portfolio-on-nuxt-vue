@@ -1,0 +1,17 @@
+{
+  "id": 2,
+  "title": "Task Management App",
+  "description": "A collaborative task management application inspired by Trello and Asana. Built with React and Firebase, it allows teams to create boards, manage tasks, set deadlines, and track progress. Features real-time collaboration and notification system.",
+  "image": "/images/2.png",
+  "technologies": ["React", "Firebase", "Material-UI", "Redux", "WebSocket"],
+  "github": "https://github.com/username/task-manager",
+  "demo": "https://taskmanager-demo.netlify.app",
+  "features": [
+    "Drag and drop task management",
+    "Real-time collaboration",
+    "Team member assignment",
+    "Due date tracking and notifications",
+    "File attachments and comments",
+    "Progress tracking and analytics"
+  ]
+}

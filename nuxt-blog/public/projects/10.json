@@ -1,0 +1,17 @@
+{
+  "id": 10,
+  "title": "Real Estate Platform",
+  "description": "A modern real estate platform for property listings, virtual tours, and market analysis. Built with Next.js and Prisma, it features advanced search filters, interactive maps, mortgage calculators, and agent profiles.",
+  "image": "/images/10.png",
+  "technologies": ["Next.js", "Prisma", "PostgreSQL", "Mapbox", "Stripe"],
+  "github": "https://github.com/username/real-estate-platform",
+  "demo": "https://real-estate-demo.vercel.app",
+  "features": [
+    "Advanced property search",
+    "Virtual tours and 360° views",
+    "Interactive maps and neighborhoods",
+    "Mortgage and payment calculators",
+    "Agent profiles and reviews",
+    "Saved searches and alerts"
+  ]
+}

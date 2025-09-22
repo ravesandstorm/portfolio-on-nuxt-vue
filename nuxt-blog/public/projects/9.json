@@ -1,0 +1,17 @@
+{
+  "id": 9,
+  "title": "Online Learning Platform",
+  "description": "An interactive online learning platform that offers courses, quizzes, and certifications. Built with Node.js and Vue.js, it features video streaming, progress tracking, discussion forums, and instructor tools.",
+  "image": "/images/9.png",
+  "technologies": ["Vue.js", "Node.js", "MongoDB", "Socket.io", "AWS S3"],
+  "github": "https://github.com/username/learning-platform",
+  "demo": "https://learning-platform-demo.herokuapp.com",
+  "features": [
+    "Video course streaming",
+    "Interactive quizzes and assessments",
+    "Progress tracking and certificates",
+    "Discussion forums and Q&A",
+    "Instructor dashboard",
+    "Mobile-responsive design"
+  ]
+}
