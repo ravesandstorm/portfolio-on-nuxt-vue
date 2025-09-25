@@ -2,11 +2,20 @@
 import { ref, onMounted } from 'vue'
 
 // Load projects from API
-const { data: projects } = await useAsyncData('projects', () =>
+const { data: projects, pending: projectsLoading } = await useAsyncData('projects', () =>
   $fetch('/api/projects')
 )
 
 const sidebarOpen = ref(false)
+const mainContentLoading = ref(true)
+
+// Simulate main content loading
+onMounted(() => {
+  // Set a timeout to simulate content loading
+  setTimeout(() => {
+    mainContentLoading.value = false
+  }, 1500) // Adjust this delay as needed
+})
 
 const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value
@@ -45,59 +54,101 @@ onMounted(() => {
   <div class="portfolio">
     <!-- Main content area -->
     <div class="main-section" :class="{ 'sidebar-open': sidebarOpen }">
-      <!-- Hero section with name -->
-      <section class="hero">
-        <div class="hero-content">
-          <SplitText
-            text="Hi, I'm Satvik!"
-            :delay="75"
-            :duration="1"
-            className="hero-title"
-            splitType="chars"
-            textAlign="center"
-          />
-          <SplitText
-            text="AI/ML and Full Stack Developer"
-            :delay="80"
-            :duration="0.8"
-            className="hero-subtitle"
-            splitType="words"
-            textAlign="center"
-          />
-          <SplitText
-            text="Check out my projects! --->"
-            :delay="200"
-            :duration="2"
-            className="hero-checkprojects"
-            splitType="words"
-            textAlign="center"
-          />
+      <div v-if="mainContentLoading" class="skeleton-container">
+        <!-- Hero section skeleton -->
+        <div class="skeleton-section">
+          <div class="skeleton-line skeleton-title"></div>
+          <div class="skeleton-line skeleton-subtitle"></div>
+          <div class="skeleton-line skeleton-text"></div>
         </div>
-      </section>
 
-      <!-- About section -->
-      <About />
+        <!-- About section skeleton -->
+        <div class="skeleton-section">
+          <div class="skeleton-line skeleton-heading"></div>
+          <div class="skeleton-line skeleton-paragraph"></div>
+          <div class="skeleton-line skeleton-paragraph-short"></div>
+          <div class="skeleton-line skeleton-paragraph"></div>
+        </div>
 
-      <!-- Tech stack -->
-      <TechStack />
+        <!-- Tech stack skeleton -->
+        <div class="skeleton-section">
+          <div class="skeleton-line skeleton-heading"></div>
+          <div class="skeleton-chips">
+            <div class="skeleton-chip" v-for="n in 6" :key="n"></div>
+          </div>
+        </div>
 
-      <!-- Social links -->
-      <SocialLinks />
+        <!-- Social links skeleton -->
+        <div class="skeleton-section">
+          <div class="skeleton-buttons">
+            <div class="skeleton-button" v-for="n in 4" :key="n"></div>
+          </div>
+        </div>
+      </div>
+
+      <template v-else>
+        <!-- Hero section with name -->
+        <section class="hero">
+          <div class="hero-content">
+            <SplitText
+              text="Hi, I'm Satvik!"
+              :delay="75"
+              :duration="1"
+              className="hero-title"
+              splitType="chars"
+              textAlign="center"
+            />
+            <SplitText
+              text="AI/ML and Full Stack Developer"
+              :delay="80"
+              :duration="0.8"
+              className="hero-subtitle"
+              splitType="words"
+              textAlign="center"
+            />
+            <SplitText
+              text="Check out my projects! --->"
+              :delay="200"
+              :duration="2"
+              className="hero-checkprojects"
+              splitType="words"
+              textAlign="center"
+            />
+          </div>
+        </section>
+
+        <!-- About section -->
+        <About />
+
+        <!-- Tech stack -->
+        <TechStack />
+
+        <!-- Social links -->
+        <SocialLinks />
+      </template>
     </div>
 
     <!-- Desktop Sidebar -->
     <div class="sidebar-section desktop-sidebar">
-      <Sidebar :posts="projects" />
+      <v-skeleton-loader
+        v-if="projectsLoading"
+        type="card, card, card"
+        class="ma-4"
+      ></v-skeleton-loader>
+      <Sidebar v-else :posts="projects" />
     </div>
 
     <!-- Mobile Sidebar Overlay -->
     <div class="mobile-sidebar-overlay" :class="{ active: sidebarOpen }" @click="closeSidebar">
       <div class="mobile-sidebar" :class="{ open: sidebarOpen }" @click.stop>
-        <Sidebar :posts="projects" />
+        <v-skeleton-loader
+          v-if="projectsLoading"
+          type="card, card, card"
+          class="ma-4"
+        ></v-skeleton-loader>
+        <Sidebar v-else :posts="projects" />
       </div>
     </div>
-
-
 
     <!-- Mobile sidebar toggle -->
     <button
@@ -314,8 +365,6 @@ onMounted(() => {
     display: none;
   }
 
-
-
   .sidebar-toggle {
     display: flex;
     z-index: 1001;
@@ -373,5 +422,168 @@ onMounted(() => {
   .sidebar-toggle span {
     width: 16px;
   }
+}
+
+/* Skeleton Loader Styles */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.skeleton-container {
+  padding: 2rem 0;
+}
+
+.skeleton-section {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dark .skeleton-section {
+  background: rgba(42, 42, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.skeleton-line {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.dark .skeleton-line {
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200px 100%;
+}
+
+/* Hero skeleton styles */
+.skeleton-title {
+  height: 60px;
+  width: 80%;
+  max-width: 400px;
+  margin: 0 auto 20px auto;
+}
+
+.skeleton-subtitle {
+  height: 32px;
+  width: 60%;
+  max-width: 300px;
+  margin: 0 auto 16px auto;
+}
+
+.skeleton-text {
+  height: 24px;
+  width: 40%;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+/* About skeleton styles */
+.skeleton-heading {
+  height: 36px;
+  width: 200px;
+  margin-bottom: 16px;
+}
+
+.skeleton-paragraph {
+  height: 20px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.skeleton-paragraph-short {
+  height: 20px;
+  width: 75%;
+}
+
+/* Tech stack skeleton styles */
+.skeleton-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.skeleton-chip {
+  height: 32px;
+  width: 80px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+.dark .skeleton-chip {
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200px 100%;
+}
+
+/* Social skeleton styles */
+.skeleton-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.skeleton-button {
+  height: 40px;
+  width: 120px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+.dark .skeleton-button {
+  background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  background-size: 200px 100%;
+}
+
+/* Sidebar skeleton styles */
+.skeleton-sidebar {
+  padding: 1rem;
+}
+
+.skeleton-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dark .skeleton-card {
+  background: rgba(42, 42, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.skeleton-card-title {
+  height: 24px;
+  width: 70%;
+  margin-bottom: 12px;
+}
+
+.skeleton-card-text {
+  height: 16px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.skeleton-card-text-short {
+  height: 16px;
+  width: 60%;
+  margin-bottom: 0;
 }
 </style>
