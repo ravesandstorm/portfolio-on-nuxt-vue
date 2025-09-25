@@ -20,6 +20,7 @@ type PrismProps = {
   bloom?: number;
   suspendWhenOffscreen?: boolean;
   timeScale?: number;
+  resolution?: number;
 };
 
 const props = withDefaults(defineProps<PrismProps>(), {
@@ -37,7 +38,8 @@ const props = withDefaults(defineProps<PrismProps>(), {
   inertia: 0.05,
   bloom: 1,
   suspendWhenOffscreen: false,
-  timeScale: 0.5
+  timeScale: 0.5,
+  resolution: 0.1
 });
 
 const containerRef = useTemplateRef('containerRef');
@@ -70,7 +72,8 @@ const setup = () => {
   const HOVSTR = Math.max(0, props.hoverStrength || 1);
   const INERT = Math.max(0, Math.min(1, props.inertia || 0.12));
 
-  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  // const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const dpr = Math.max(0.25, Math.min(2, props.resolution ?? (window.devicePixelRatio || 1)));
   const renderer = new Renderer({
     dpr,
     alpha: props.transparent,

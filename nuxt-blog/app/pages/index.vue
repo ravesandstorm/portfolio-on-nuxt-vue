@@ -50,7 +50,7 @@ onMounted(() => {
         <div class="hero-content">
           <SplitText
             text="Hi, I'm Satvik!"
-            :delay="100"
+            :delay="75"
             :duration="1"
             className="hero-title"
             splitType="chars"
@@ -223,7 +223,7 @@ onMounted(() => {
 .sidebar-toggle {
   display: none;
   position: fixed;
-  top: 50%;
+  top: 36.5%;
   right: 1.5rem;
   transform: translateY(-50%);
   z-index: 1001;
@@ -249,7 +249,7 @@ onMounted(() => {
 }
 
 .sidebar-toggle span {
-  width: 20px;
+  width: 30px;
   height: 2px;
   background: white;
   border-radius: 1px;
@@ -257,7 +257,7 @@ onMounted(() => {
 }
 
 .sidebar-toggle.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: translate(0px, 6px) rotate(45deg) ;
 }
 
 .sidebar-toggle.active span:nth-child(2) {
@@ -265,7 +265,7 @@ onMounted(() => {
 }
 
 .sidebar-toggle.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -6px);
+  transform: translate(0px, -6px) rotate(-45deg);
 }
 
 /* Dark mode */

@@ -14,6 +14,7 @@
         :colorFrequency="1.2"
         :bloom="1.5"
         :timeScale="0.25"
+        :resolution="0.01"
       />
     </div>
 

@@ -86,10 +86,10 @@ const highlights = [
 }
 
 .about-header {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
-.about-title {
+.about-title * {
   font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
   color: #2c3e50;
