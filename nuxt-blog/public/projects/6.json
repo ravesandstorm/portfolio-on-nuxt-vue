@@ -1,0 +1,17 @@
+{
+  "id": 6,
+  "title": "Cryptocurrency Tracker",
+  "description": "A real-time cryptocurrency tracking application that monitors prices, market trends, and portfolio performance. Built with React and integrates with multiple crypto APIs to provide comprehensive market data and analysis tools.",
+  "image": "/images/6.png",
+  "technologies": ["React", "Redux", "CoinGecko API", "Chart.js", "Material-UI"],
+  "github": "https://github.com/username/crypto-tracker",
+  "demo": "https://crypto-tracker-demo.netlify.app",
+  "features": [
+    "Real-time price tracking",
+    "Portfolio management",
+    "Market trend analysis",
+    "Price alerts and notifications",
+    "Historical data visualization",
+    "News and market sentiment"
+  ]
+}

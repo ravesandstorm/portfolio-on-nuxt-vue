@@ -1,11 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-const { data: posts } = await useAsyncData('posts', () =>
-  $fetch('https://jsonplaceholder.typicode.com/posts')
+// Load projects from API
+const { data: projects } = await useAsyncData('projects', () =>
+  $fetch('/api/projects')
 )
-
-posts.value = posts.value.slice(0, 8)
 
 const sidebarOpen = ref(false)
 
@@ -40,18 +39,26 @@ onMounted(() => {
       <section class="hero">
         <div class="hero-content">
           <SplitText
-            text="Hi, I'm Your Name"
-            :delay="150"
+            text="Hi, I'm Satvik!"
+            :delay="100"
             :duration="1"
             className="hero-title"
             splitType="chars"
             textAlign="center"
           />
           <SplitText
-            text="Full Stack Developer & Designer"
+            text="AI/ML and Full Stack Developer"
             :delay="80"
             :duration="0.8"
             className="hero-subtitle"
+            splitType="words"
+            textAlign="center"
+          />
+          <SplitText
+            text="Check out my projects! --->"
+            :delay="200"
+            :duration="2"
+            className="hero-checkprojects"
             splitType="words"
             textAlign="center"
           />
@@ -70,7 +77,7 @@ onMounted(() => {
 
     <!-- Sidebar (30%) -->
     <div class="sidebar-section">
-      <Sidebar :posts="posts" :class="{ open: sidebarOpen }" />
+      <Sidebar :posts="projects" :class="{ open: sidebarOpen }" />
     </div>
 
     <!-- Mobile sidebar toggle -->
@@ -88,24 +95,25 @@ onMounted(() => {
 
 <style scoped>
 .portfolio {
-  display: flex;
-  min-height: 100vh;
-  position: relative;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  gap: 0;
+  /* makes children able to be 100% tall and scroll independently */
+  height: 100vh;
+  width: 100%;
 }
 
 .main-section {
-  flex: 0 0 70%;
-  padding: 2rem;
   overflow-y: auto;
-  position: relative;
   z-index: 10;
+  height: 100%;
+  position: relative;
 }
 
 .sidebar-section {
-  flex: 0 0 30%;
-  position: sticky;
   top: 80px;
-  height: calc(100vh - 80px);
+  height: 100%;
+  overflow-y: auto;
 }
 
 /* Hero section */
@@ -122,11 +130,11 @@ onMounted(() => {
   max-width: 600px;
 }
 
-.hero-title {
+.hero-title *{
   font-size: 4rem;
   font-weight: 800;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(120deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -134,10 +142,17 @@ onMounted(() => {
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
-  color: #64748b;
-  font-weight: 400;
+  font-size: 2.5rem;
+  color: #576579;
+  font-weight: 600;
   margin: 0;
+}
+
+.hero-checkprojects {
+  font-size: 2rem;
+  color: #3e4856;
+  font-weight: 500;
+  margin: 10px;
 }
 
 /* Mobile sidebar toggle */
@@ -184,7 +199,7 @@ onMounted(() => {
 }
 
 /* Dark mode */
-.dark .hero-title {
+.dark .hero-title * {
   background: linear-gradient(135deg, #9f7aea 0%, #ed64a6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -192,7 +207,11 @@ onMounted(() => {
 }
 
 .dark .hero-subtitle {
-  color: #a0aec0;
+  color: #c8c8c8;
+}
+
+.dark .hero-checkprojects {
+  color: #c9c9c9;
 }
 
 .dark .sidebar-toggle {

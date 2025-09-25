@@ -1,0 +1,17 @@
+{
+  "id": 3,
+  "title": "Weather Dashboard",
+  "description": "A comprehensive weather dashboard that provides current weather conditions, 7-day forecasts, and weather maps. Built with Vue.js and integrates multiple weather APIs to provide accurate and detailed weather information with beautiful visualizations.",
+  "image": "/images/3.png",
+  "technologies": ["Vue.js", "Chart.js", "OpenWeather API", "Mapbox", "Tailwind CSS"],
+  "github": "https://github.com/username/weather-dashboard",
+  "demo": "https://weather-dashboard-demo.vercel.app",
+  "features": [
+    "Current weather conditions",
+    "7-day weather forecast",
+    "Interactive weather maps",
+    "Location-based weather search",
+    "Weather alerts and notifications",
+    "Historical weather data visualization"
+  ]
+}

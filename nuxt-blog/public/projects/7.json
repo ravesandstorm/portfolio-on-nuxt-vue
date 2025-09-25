@@ -1,0 +1,17 @@
+{
+  "id": 7,
+  "title": "Recipe Sharing Platform",
+  "description": "A community-driven recipe sharing platform where users can discover, share, and rate recipes. Built with Vue.js and Supabase, it features user profiles, recipe collections, cooking timers, and social interactions.",
+  "image": "/images/7.png",
+  "technologies": ["Vue.js", "Supabase", "Nuxt.js", "Tailwind CSS", "Pinia"],
+  "github": "https://github.com/username/recipe-platform",
+  "demo": "https://recipe-platform-demo.vercel.app",
+  "features": [
+    "Recipe discovery and search",
+    "User-generated content",
+    "Rating and review system",
+    "Cooking timers and tools",
+    "Meal planning features",
+    "Social following and sharing"
+  ]
+}
