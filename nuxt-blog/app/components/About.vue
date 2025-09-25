@@ -67,20 +67,22 @@ const highlights = [
 
 <style scoped>
 .about {
-  padding: 4rem 2rem;
-  max-width: 800px;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem);
+  max-width: 1000px;
   margin: 0 auto;
   position: relative;
   z-index: 10;
+  width: 100%;
 }
 
 .about-content {
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(15px);
-  border-radius: 24px;
-  padding: 3rem 2.5rem;
+  border-radius: clamp(16px, 3vw, 24px);
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
 }
 
 .about-header {
@@ -88,7 +90,7 @@ const highlights = [
 }
 
 .about-title {
-  font-size: 3rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
   color: #2c3e50;
   margin: 0;
@@ -99,11 +101,11 @@ const highlights = [
 }
 
 .about-description {
-  margin-bottom: 3rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
 .about-text {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   line-height: 1.8;
   color: #4a5568;
   margin: 0;
@@ -112,16 +114,16 @@ const highlights = [
 
 .about-highlights {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(180px, 25vw, 200px), 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  margin-top: clamp(1.5rem, 3vw, 2rem);
 }
 
 .highlight-item {
   text-align: center;
-  padding: 1.5rem;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
   background: rgba(255, 255, 255, 0.6);
-  border-radius: 16px;
+  border-radius: clamp(12px, 2vw, 16px);
   border: 1px solid rgba(0, 112, 243, 0.1);
   transition: all 0.3s ease;
 }
@@ -133,7 +135,7 @@ const highlights = [
 }
 
 .highlight-title {
-  font-size: 1.3rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
   font-weight: 600;
   color: #2c3e50;
   margin-bottom: 0.5rem;
@@ -141,7 +143,7 @@ const highlights = [
 }
 
 .highlight-description {
-  font-size: 0.95rem;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
   color: #64748b;
   line-height: 1.5;
   margin: 0;

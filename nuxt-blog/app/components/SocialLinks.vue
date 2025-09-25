@@ -69,19 +69,20 @@ const socialLinks = [
 
 <style scoped>
 .social-links {
-  padding: 4rem 2rem;
-  max-width: 800px;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem);
+  max-width: 1000px;
   margin: 0 auto;
   position: relative;
   z-index: 10;
+  width: 100%;
 }
 
 .social-header {
-  margin-bottom: 3rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
 .social-title {
-  font-size: 3rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
   color: #2c3e50;
   margin: 0;
@@ -93,17 +94,17 @@ const socialLinks = [
 
 .social-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 40vw, 300px), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
 }
 
 .social-item {
   display: flex;
   align-items: center;
-  padding: 1.5rem;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(15px);
-  border-radius: 16px;
+  border-radius: clamp(12px, 2.5vw, 16px);
   text-decoration: none;
   color: inherit;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -113,6 +114,7 @@ const socialLinks = [
   animation: fadeInUp 0.6s ease forwards;
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 @keyframes fadeInUp {
@@ -153,15 +155,15 @@ const socialLinks = [
 }
 
 .social-icon {
-  width: 48px;
-  height: 48px;
-  margin-right: 1rem;
+  width: clamp(40px, 8vw, 48px);
+  height: clamp(40px, 8vw, 48px);
+  margin-right: clamp(0.75rem, 2vw, 1rem);
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(0, 112, 243, 0.1);
-  border-radius: 12px;
+  border-radius: clamp(8px, 2vw, 12px);
   transition: all 0.3s ease;
 }
 
@@ -171,26 +173,26 @@ const socialLinks = [
 }
 
 .social-icon img {
-  width: 28px;
-  height: 28px;
+  width: clamp(24px, 6vw, 28px);
+  height: clamp(24px, 6vw, 28px);
   object-fit: contain;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .social-content {
   flex: 1;
-  margin-right: 1rem;
+  margin-right: clamp(0.75rem, 2vw, 1rem);
 }
 
 .social-name {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   font-weight: 600;
   color: #2c3e50;
   margin: 0 0 0.25rem 0;
 }
 
 .social-description {
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
   color: #64748b;
   margin: 0;
   line-height: 1.4;

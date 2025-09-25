@@ -12,6 +12,10 @@ const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value
 }
 
+const closeSidebar = () => {
+  sidebarOpen.value = false
+}
+
 // Close sidebar when clicking outside on mobile
 onMounted(() => {
   const handleClickOutside = (event) => {
@@ -33,8 +37,8 @@ onMounted(() => {
 
 <template>
   <div class="portfolio">
-    <!-- Main content area (70%) -->
-    <div class="main-section">
+    <!-- Main content area -->
+    <div class="main-section" :class="{ 'sidebar-open': sidebarOpen }">
       <!-- Hero section with name -->
       <section class="hero">
         <div class="hero-content">
@@ -75,16 +79,23 @@ onMounted(() => {
       <SocialLinks />
     </div>
 
-    <!-- Sidebar (30%) -->
-    <div class="sidebar-section">
-      <Sidebar :posts="projects" :class="{ open: sidebarOpen }" />
+    <!-- Desktop Sidebar -->
+    <div class="sidebar-section desktop-sidebar">
+      <Sidebar :posts="projects" />
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div class="mobile-sidebar-overlay" :class="{ active: sidebarOpen }" @click="closeSidebar">
+      <div class="mobile-sidebar" :class="{ open: sidebarOpen }" @click.stop>
+        <Sidebar :posts="projects" />
+      </div>
     </div>
 
     <!-- Mobile sidebar toggle -->
     <button
       class="sidebar-toggle"
       @click="toggleSidebar"
-      :class="{ active: sidebarOpen }"
+      :class="{ active: sidebarOpen, 'move-left': sidebarOpen }"
     >
       <span></span>
       <span></span>
@@ -95,25 +106,72 @@ onMounted(() => {
 
 <style scoped>
 .portfolio {
-  display: grid;
-  grid-template-columns: 70% 30%;
-  gap: 0;
-  /* makes children able to be 100% tall and scroll independently */
+  display: flex;
   height: 100vh;
   width: 100%;
+  position: relative;
 }
 
 .main-section {
+  flex: 1;
   overflow-y: auto;
   z-index: 10;
   height: 100%;
   position: relative;
+  padding: 0 2rem;
+  transition: all 0.3s ease;
 }
 
-.sidebar-section {
-  top: 80px;
+.main-section.sidebar-open {
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.desktop-sidebar {
+  width: 400px;
   height: 100%;
   overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.mobile-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.mobile-sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-sidebar {
+  position: absolute;
+  top: 0;
+  right: -100%;
+  width: 90%;
+  max-width: 400px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-sidebar.open {
+  right: 0;
+}
+
+.dark .mobile-sidebar {
+  background: rgba(42, 42, 42, 0.95);
 }
 
 /* Hero section */
@@ -124,14 +182,16 @@ onMounted(() => {
   justify-content: center;
   text-align: center;
   margin-bottom: 2rem;
+  padding: 2rem 1rem;
 }
 
 .hero-content {
-  max-width: 600px;
+  max-width: 800px;
+  width: 100%;
 }
 
-.hero-title *{
-  font-size: 4rem;
+.hero-title * {
+  font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: 800;
   margin-bottom: 1rem;
   background: linear-gradient(120deg, #667eea 0%, #764ba2 100%);
@@ -142,14 +202,14 @@ onMounted(() => {
 }
 
 .hero-subtitle {
-  font-size: 2.5rem;
+  font-size: clamp(1.2rem, 4vw, 2.5rem);
   color: #576579;
   font-weight: 600;
-  margin: 0;
+  margin: 0 0 1rem 0;
 }
 
 .hero-checkprojects {
-  font-size: 2rem;
+  font-size: clamp(1rem, 3vw, 2rem);
   color: #3e4856;
   font-weight: 500;
   margin: 10px;
@@ -160,7 +220,7 @@ onMounted(() => {
   display: none;
   position: fixed;
   top: 50%;
-  right: 1rem;
+  right: 1.5rem;
   transform: translateY(-50%);
   z-index: 200;
   background: rgba(0, 112, 243, 0.9);
@@ -175,7 +235,13 @@ onMounted(() => {
   gap: 4px;
   box-shadow: 0 4px 20px rgba(0, 112, 243, 0.3);
   backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-toggle.move-left {
+  right: calc(90% - 4rem);
+  background: rgba(220, 38, 127, 0.9);
+  box-shadow: 0 4px 20px rgba(220, 38, 127, 0.3);
 }
 
 .sidebar-toggle span {
@@ -220,17 +286,27 @@ onMounted(() => {
 }
 
 /* Responsive design */
+@media (max-width: 1200px) {
+  .desktop-sidebar {
+    width: 350px;
+  }
+
+  .main-section {
+    padding: 0 1.5rem;
+  }
+}
+
 @media (max-width: 1024px) {
   .portfolio {
     flex-direction: column;
   }
 
   .main-section {
-    flex: 1;
-    padding: 1.5rem;
+    padding: 1rem;
+    width: 100%;
   }
 
-  .sidebar-section {
+  .desktop-sidebar {
     display: none;
   }
 
@@ -238,40 +314,57 @@ onMounted(() => {
     display: flex;
   }
 
-  .hero-title {
-    font-size: 3rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.3rem;
+  .hero {
+    min-height: 50vh;
+    padding: 1rem;
   }
 }
 
 @media (max-width: 768px) {
   .main-section {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .hero {
-    min-height: 50vh;
+    min-height: 40vh;
+    padding: 0.5rem;
   }
 
-  .hero-title {
-    font-size: 2.5rem;
+  .mobile-sidebar {
+    width: 95%;
   }
 
-  .hero-subtitle {
-    font-size: 1.2rem;
+  .sidebar-toggle.move-left {
+    right: calc(95% - 4rem);
   }
 }
 
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: 2rem;
+  .main-section {
+    padding: 0.25rem;
   }
 
-  .hero-subtitle {
-    font-size: 1rem;
+  .hero {
+    min-height: 35vh;
+    padding: 0.25rem;
+  }
+
+  .mobile-sidebar {
+    width: 100%;
+  }
+
+  .sidebar-toggle.move-left {
+    right: 1rem;
+  }
+
+  .sidebar-toggle {
+    width: 48px;
+    height: 48px;
+    right: 1rem;
+  }
+
+  .sidebar-toggle span {
+    width: 16px;
   }
 }
 </style>

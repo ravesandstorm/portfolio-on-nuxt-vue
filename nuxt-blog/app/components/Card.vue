@@ -107,7 +107,7 @@ function onImgError() {
 }
 
 .project-number {
-  font-size: 3rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -171,7 +171,7 @@ function onImgError() {
 }
 
 .card-title {
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   font-weight: 600;
   color: #2c3e50;
   line-height: 1.4;
