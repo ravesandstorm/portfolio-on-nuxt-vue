@@ -20,8 +20,14 @@ const closeSidebar = () => {
 onMounted(() => {
   const handleClickOutside = (event) => {
     if (window.innerWidth <= 1024 && sidebarOpen.value) {
-      const sidebar = document.querySelector('.sidebar')
-      if (sidebar && !sidebar.contains(event.target)) {
+      const mobileOverlay = document.querySelector('.mobile-sidebar-overlay')
+      const mobileSidebar = document.querySelector('.mobile-sidebar')
+      const toggleButton = document.querySelector('.sidebar-toggle')
+
+      // Close if clicking on overlay but not on sidebar or toggle button
+      if (mobileOverlay && mobileOverlay.contains(event.target) &&
+          !mobileSidebar?.contains(event.target) &&
+          !toggleButton?.contains(event.target)) {
         sidebarOpen.value = false
       }
     }
@@ -91,11 +97,14 @@ onMounted(() => {
       </div>
     </div>
 
+
+
     <!-- Mobile sidebar toggle -->
     <button
       class="sidebar-toggle"
       @click="toggleSidebar"
       :class="{ active: sidebarOpen, 'move-left': sidebarOpen }"
+      :title="sidebarOpen ? 'Close Projects' : 'Open Projects'"
     >
       <span></span>
       <span></span>
@@ -138,40 +147,35 @@ onMounted(() => {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 100;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  backdrop-filter: blur(8px);
 }
 
 .mobile-sidebar-overlay.active {
-  opacity: 1;
-  visibility: visible;
+  transform: translateX(0);
 }
 
 .mobile-sidebar {
   position: absolute;
   top: 0;
-  right: -100%;
-  width: 90%;
-  max-width: 400px;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
-}
-
-.mobile-sidebar.open {
   right: 0;
+  width: 90%;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  box-shadow: -15px 0 40px rgba(0, 0, 0, 0.3);
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
 }
 
 .dark .mobile-sidebar {
-  background: rgba(42, 42, 42, 0.95);
+  background: rgba(42, 42, 42, 0.98);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Hero section */
@@ -222,7 +226,7 @@ onMounted(() => {
   top: 50%;
   right: 1.5rem;
   transform: translateY(-50%);
-  z-index: 200;
+  z-index: 1001;
   background: rgba(0, 112, 243, 0.9);
   border: none;
   border-radius: 50%;
@@ -235,11 +239,11 @@ onMounted(() => {
   gap: 4px;
   box-shadow: 0 4px 20px rgba(0, 112, 243, 0.3);
   backdrop-filter: blur(10px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar-toggle.move-left {
-  right: calc(90% - 4rem);
+  right: 5%;
   background: rgba(220, 38, 127, 0.9);
   box-shadow: 0 4px 20px rgba(220, 38, 127, 0.3);
 }
@@ -310,8 +314,11 @@ onMounted(() => {
     display: none;
   }
 
+
+
   .sidebar-toggle {
     display: flex;
+    z-index: 1001;
   }
 
   .hero {
@@ -335,7 +342,7 @@ onMounted(() => {
   }
 
   .sidebar-toggle.move-left {
-    right: calc(95% - 4rem);
+    right: 3%;
   }
 }
 
