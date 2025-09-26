@@ -141,7 +141,7 @@ useHead({
   z-index: 3;
 }
 
-.post-title {
+.post-title * {
   font-size: 2.5rem;
   font-weight: 700;
   line-height: 1.3;

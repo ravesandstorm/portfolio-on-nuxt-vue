@@ -81,7 +81,7 @@ const socialLinks = [
   margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
-.social-title {
+.social-title * {
   font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
   color: #2c3e50;

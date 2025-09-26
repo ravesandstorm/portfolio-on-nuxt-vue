@@ -44,31 +44,33 @@ const techCategories = [
   {
     name: "Frontend",
     technologies: [
-      { name: "Vue.js", icon: "/tech/vue.svg" },
-      { name: "React", icon: "/tech/react.svg" },
-      { name: "TypeScript", icon: "/tech/typescript.svg" },
-      { name: "Nuxt", icon: "/tech/nuxt.svg" },
-      { name: "Tailwind", icon: "/tech/tailwind.svg" }
+      { name: "Vue.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" },
+      { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+      { name: "Nuxt", icon: "https://cdn.simpleicons.org/nuxt/00DC82" },
+      { name: "HTML5", icon: "https://cdn.simpleicons.org/html5/E34F26" },
+      // { name: "CSS3", icon: "https://cdn.simpleicons.org/css/1572B6" },
     ]
   },
   {
     name: "Backend",
     technologies: [
-      { name: "Node.js", icon: "/tech/nodejs.svg" },
-      { name: "Python", icon: "/tech/python.svg" },
-      { name: "Express", icon: "/tech/express.svg" },
-      { name: "FastAPI", icon: "/tech/fastapi.svg" },
-      { name: "Docker", icon: "/tech/docker.svg" }
+      { name: "Node.js", icon: "https://cdn.simpleicons.org/nodedotjs/339933" },
+      // { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+      { name: "Express", icon: "https://skillicons.dev/icons?i=express" },
+      { name: "FastAPI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
+      { name: "GoLang", icon: "https://skillicons.dev/icons?i=go" },
+      { name: "Maven", icon: "https://skillicons.dev/icons?i=maven" },
     ]
   },
   {
     name: "Database",
     technologies: [
-      { name: "PostgreSQL", icon: "/tech/postgresql.svg" },
-      { name: "MongoDB", icon: "/tech/mongodb.svg" },
-      { name: "Redis", icon: "/tech/redis.svg" },
-      { name: "Supabase", icon: "/tech/supabase.svg" },
-      { name: "Firebase", icon: "/tech/firebase.svg" }
+      { name: "MySQL", icon: "https://cdn.simpleicons.org/mysql/4479A1" },
+      { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+      { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+      { name: "Redis", icon: "https://cdn.simpleicons.org/redis/DC382D" },
+      { name: "GraphQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" },
     ]
   }
 ]
@@ -88,7 +90,7 @@ const techCategories = [
   margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
-.tech-title {
+.tech-title * {
   font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
   color: #2c3e50;

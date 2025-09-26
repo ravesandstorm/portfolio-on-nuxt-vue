@@ -1,5 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useSeoMeta } from '#app'
+
+useSeoMeta({
+  title: 'Satvik Beura\'s Development Portfolio',
+  description: 'My portfolio containing links to projects, links to socials and my tech stack, created as a SEO webpage, acting as a collection of my achievements.'
+})
 
 // Load projects from API
 const { data: projects, pending: projectsLoading } = await useAsyncData('projects', () =>
