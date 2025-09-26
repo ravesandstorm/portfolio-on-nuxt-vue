@@ -130,23 +130,13 @@ onMounted(() => {
 
     <!-- Desktop Sidebar -->
     <div class="sidebar-section desktop-sidebar">
-      <v-skeleton-loader
-        v-if="projectsLoading"
-        type="card, card, card"
-        class="ma-4"
-      ></v-skeleton-loader>
-      <Sidebar v-else :posts="projects" />
+      <Sidebar :posts="projects" />
     </div>
 
     <!-- Mobile Sidebar Overlay -->
     <div class="mobile-sidebar-overlay" :class="{ active: sidebarOpen }" @click="closeSidebar">
       <div class="mobile-sidebar" :class="{ open: sidebarOpen }" @click.stop>
-        <v-skeleton-loader
-          v-if="projectsLoading"
-          type="card, card, card"
-          class="ma-4"
-        ></v-skeleton-loader>
-        <Sidebar v-else :posts="projects" />
+        <Sidebar :posts="projects" />
       </div>
     </div>
 
