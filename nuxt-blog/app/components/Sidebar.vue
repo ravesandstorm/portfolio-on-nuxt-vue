@@ -125,31 +125,30 @@ defineProps({
 /* Responsive design */
 @media (max-width: 1024px) {
   .sidebar {
-    position: fixed;
-    right: -100%;
-    top: 0;
-    width: 350px;
-    transition: right 0.3s ease;
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
   }
-  
-  .sidebar.open {
-    right: 0;
+
+  .sidebar-content {
+    padding: 1rem;
+  }
+
+  .projects-grid {
+    gap: 1rem;
   }
 }
 
 @media (max-width: 640px) {
-  .sidebar {
-    width: 100%;
-    right: -100%;
-  }
-  
   .sidebar-content {
-    padding: 1rem;
+    padding: 0.75rem;
   }
-  
+
   .projects-grid {
-    gap: 1rem;
+    gap: 0.75rem;
   }
 }
 </style>
