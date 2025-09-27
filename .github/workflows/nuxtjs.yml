@@ -73,10 +73,14 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ./nuxt-app
       - name: Static HTML export with Nuxt
-        run: ${{ steps.detect-package-manager.outputs.manager }} run generate
+        # run: ${{ steps.detect-package-manager.outputs.manager }} run generate
+        run: |
+          echo "Using base URL: /${{ github.event.repository.name }}/"
+          NUXT_APP_BASE_URL=/${{ github.event.repository.name }}/ \
+          ${{ steps.detect-package-manager.outputs.manager }} run generate
         working-directory: ./nuxt-app
-        env:
-          NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
+        # env:
+        #   NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
