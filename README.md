@@ -32,13 +32,20 @@ A modern, interactive portfolio website built using Nuxt.js and Vue.js, featurin
 
 ## How to run
 
+### 1. Clone Repository
 ```bash
 git clone https://github.com/ravesandstorm/portfolio-on-nuxt-vue.git
-cd nuxt-app
+cd portfolio-on-nuxt-vue
 ```
 
+### 2. Install Node Dependencies
 ```bash
+cd nuxt-app
 npm install
+```
+
+### 3. Run Application on Localhost
+```bash
 npm run dev
 ```
 
