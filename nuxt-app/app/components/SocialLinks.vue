@@ -49,7 +49,7 @@ const socialLinks = [
   {
     name: "LinkedIn",
     description: "Connect with me professionally and see my experience",
-    url: "https://linkedin.com/satvik-beura",
+    url: "https://www.linkedin.com/in/satvik-beura",
     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg"
   },
   {
