@@ -63,7 +63,7 @@ function onImgError() {
   cursor: pointer;
   text-decoration: none;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 3;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -79,7 +79,7 @@ function onImgError() {
 .image-container {
   position: relative;
   width: 100%;
-  height: 70%;
+  height: 80%;
   overflow: hidden;
 }
 

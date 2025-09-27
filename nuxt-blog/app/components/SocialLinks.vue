@@ -42,28 +42,29 @@
 const socialLinks = [
   {
     name: "GitHub",
-    description: "Check out my repositories and open source contributions",
-    url: "https://github.com",
-    icon: "/social/github.svg"
+    description: "Check out my repositories and projects",
+    url: "https://github.com/ravesandstorm",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
   },
   {
     name: "LinkedIn",
     description: "Connect with me professionally and see my experience",
-    url: "https://linkedin.com",
-    icon: "/social/linkedin.svg"
-  },
-  {
-    name: "LeetCode",
-    description: "View my coding challenges and problem-solving skills",
-    url: "https://leetcode.com",
-    icon: "/social/leetcode.svg"
+    url: "https://linkedin.com/satvik-beura",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linkedin/linkedin-original.svg"
   },
   {
     name: "Kaggle",
     description: "Explore my data science projects and competitions",
-    url: "https://kaggle.com",
-    icon: "/social/kaggle.svg"
-  }
+    url: "https://kaggle.com/ravesandstorm",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kaggle/kaggle-original.svg"
+  },
+  {
+    name: "LeetCode",
+    description: "View my coding challenges and problem-solving skills",
+    url: "https://leetcode.com/u/ravesandstorm",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/leetcode/leetcode-original.svg"
+  },
+
 ]
 </script>
 

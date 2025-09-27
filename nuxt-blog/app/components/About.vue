@@ -49,20 +49,14 @@
 </template>
 
 <script setup>
-const highlights = [
-  {
-    title: "Frontend",
-    description: "Vue.js, React, TypeScript, Modern CSS"
-  },
-  {
-    title: "Backend", 
-    description: "Node.js, Python, Database Design"
-  },
-  {
-    title: "Tools",
-    description: "Git, Docker, CI/CD, Cloud Services"
-  }
-]
+import techCategories from '../public/techStack.json'
+
+const highlights = techCategories.map(category => ({
+    title: category.name,
+    description: category.technologies.map(tech => tech.name).join(', ')
+  })
+);
+
 </script>
 
 <style scoped>

@@ -1,11 +1,5 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useSeoMeta } from '#app'
-
-useSeoMeta({
-  title: 'Satvik Beura\'s Development Portfolio',
-  description: 'My portfolio containing links to projects, links to socials and my tech stack, created as a SEO webpage, acting as a collection of my achievements.'
-})
 
 // Load projects from API
 const { data: projects, pending: projectsLoading } = await useAsyncData('projects', () =>
@@ -15,12 +9,8 @@ const { data: projects, pending: projectsLoading } = await useAsyncData('project
 const sidebarOpen = ref(false)
 const mainContentLoading = ref(true)
 
-// Simulate main content loading
 onMounted(() => {
-  // Set a timeout to simulate content loading
-  setTimeout(() => {
-    mainContentLoading.value = false
-  }, 1500) // Adjust this delay as needed
+  mainContentLoading.value = false
 })
 
 const toggleSidebar = () => {
@@ -62,11 +52,13 @@ onMounted(() => {
     <div class="main-section" :class="{ 'sidebar-open': sidebarOpen }">
       <div v-if="mainContentLoading" class="skeleton-container">
         <!-- Hero section skeleton -->
-        <div class="skeleton-section">
-          <div class="skeleton-line skeleton-title"></div>
-          <div class="skeleton-line skeleton-subtitle"></div>
-          <div class="skeleton-line skeleton-text"></div>
-        </div>
+        <section class="hero">
+          <div class="hero-content">
+            <div class="skeleton-line skeleton-title"></div>
+            <div class="skeleton-line skeleton-subtitle"></div>
+            <div class="skeleton-line skeleton-text"></div>
+          </div>
+        </section>
 
         <!-- About section skeleton -->
         <div class="skeleton-section">
@@ -80,7 +72,7 @@ onMounted(() => {
         <div class="skeleton-section">
           <div class="skeleton-line skeleton-heading"></div>
           <div class="skeleton-chips">
-            <div class="skeleton-chip" v-for="n in 6" :key="n"></div>
+            <div class="skeleton-chip" v-for="n in 4" :key="n"></div>
           </div>
         </div>
 
@@ -227,13 +219,12 @@ onMounted(() => {
 
 /* Hero section */
 .hero {
-  min-height: 60vh;
+  margin-top: 4rem;
+  min-height: 40vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-bottom: 2rem;
-  padding: 2rem 1rem;
 }
 
 .hero-content {
@@ -270,7 +261,7 @@ onMounted(() => {
 .sidebar-toggle {
   display: none;
   position: fixed;
-  top: 36.5%;
+  top: 34.5%;
   right: 1.5rem;
   transform: translateY(-50%);
   z-index: 1001;
@@ -431,7 +422,18 @@ onMounted(() => {
 }
 
 .skeleton-container {
-  padding: 2rem 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.skeleton-container .hero {
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem 1rem;
 }
 
 .skeleton-section {
@@ -463,25 +465,30 @@ onMounted(() => {
   background-size: 200px 100%;
 }
 
-/* Hero skeleton styles */
+/* Hero skeleton styles - match original hero layout */
+.skeleton-container .hero-content {
+  max-width: 800px;
+  width: 100%;
+}
+
 .skeleton-title {
-  height: 60px;
+  height: 75px;
   width: 80%;
-  max-width: 400px;
+  max-width: 450px;
   margin: 0 auto 20px auto;
 }
 
 .skeleton-subtitle {
   height: 32px;
-  width: 60%;
-  max-width: 300px;
+  width: 80%;
+  max-width: 600px;
   margin: 0 auto 16px auto;
 }
 
 .skeleton-text {
   height: 24px;
   width: 40%;
-  max-width: 200px;
+  max-width: 300px;
   margin: 0 auto;
 }
 
@@ -490,6 +497,7 @@ onMounted(() => {
   height: 36px;
   width: 200px;
   margin-bottom: 16px;
+  justify-self: center;
 }
 
 .skeleton-paragraph {
@@ -509,6 +517,7 @@ onMounted(() => {
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 16px;
+  justify-self: center;
 }
 
 .skeleton-chip {
@@ -527,14 +536,15 @@ onMounted(() => {
 
 /* Social skeleton styles */
 .skeleton-buttons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
   flex-wrap: wrap;
+  justify-items: center;
 }
 
 .skeleton-button {
-  height: 40px;
+  height: 60px;
   width: 120px;
   border-radius: 8px;
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
@@ -581,5 +591,27 @@ onMounted(() => {
   height: 16px;
   width: 60%;
   margin-bottom: 0;
+}
+
+/* Responsive adjustments for skeleton */
+@media (max-width: 1024px) {
+  .skeleton-container .hero {
+    min-height: 50vh;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .skeleton-container .hero {
+    min-height: 40vh;
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skeleton-container .hero {
+    min-height: 35vh;
+    padding: 0.25rem;
+  }
 }
 </style>

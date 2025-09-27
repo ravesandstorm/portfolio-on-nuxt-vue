@@ -40,40 +40,7 @@
 </template>
 
 <script setup>
-const techCategories = [
-  {
-    name: "Frontend",
-    technologies: [
-      { name: "Vue.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" },
-      { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-      { name: "Nuxt", icon: "https://cdn.simpleicons.org/nuxt/00DC82" },
-      { name: "HTML5", icon: "https://cdn.simpleicons.org/html5/E34F26" },
-      // { name: "CSS3", icon: "https://cdn.simpleicons.org/css/1572B6" },
-    ]
-  },
-  {
-    name: "Backend",
-    technologies: [
-      { name: "Node.js", icon: "https://cdn.simpleicons.org/nodedotjs/339933" },
-      // { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-      { name: "Express", icon: "https://skillicons.dev/icons?i=express" },
-      { name: "FastAPI", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
-      { name: "GoLang", icon: "https://skillicons.dev/icons?i=go" },
-      { name: "Maven", icon: "https://skillicons.dev/icons?i=maven" },
-    ]
-  },
-  {
-    name: "Database",
-    technologies: [
-      { name: "MySQL", icon: "https://cdn.simpleicons.org/mysql/4479A1" },
-      { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
-      { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-      { name: "Redis", icon: "https://cdn.simpleicons.org/redis/DC382D" },
-      { name: "GraphQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" },
-    ]
-  }
-]
+  import techCategories from '../public/techStack.json'
 </script>
 
 <style scoped>
@@ -133,7 +100,6 @@ const techCategories = [
 .tech-items {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(clamp(100px, 15vw, 120px), 1fr));
-  gap: clamp(1rem, 2.5vw, 1.5rem);
   justify-items: center;
 }
 
@@ -141,7 +107,7 @@ const techCategories = [
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(0.75rem, 2vw, 1rem);
+  padding: clamp(0.25rem, 1.5vw, .5rem);
   border-radius: clamp(8px, 2vw, 12px);
   transition: all 0.3s ease;
   cursor: pointer;
@@ -163,6 +129,7 @@ const techCategories = [
 .tech-item:hover {
   transform: translateY(-8px) scale(1.05);
   background: rgba(0, 112, 243, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 112, 243, 0.2);
 }
 
 .tech-icon {
