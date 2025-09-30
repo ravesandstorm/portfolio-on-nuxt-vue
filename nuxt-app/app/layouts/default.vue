@@ -23,7 +23,7 @@
       <div class="header-content">
         <NuxtLink to="/" class="logo">
           <span class="logo-text">
-            <!-- Satvik's Portfolio -->
+            Satvik's Portfolio
           </span>
         </NuxtLink>
         <div class="header-actions">
