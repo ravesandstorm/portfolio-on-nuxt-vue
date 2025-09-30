@@ -22,17 +22,18 @@
     <header class="app-header">
       <div class="header-content">
         <NuxtLink to="/" class="logo">
-          <span class="logo-text">Satvik's Portfolio</span>
+          <span class="logo-text">
+            <!-- Satvik's Portfolio -->
+          </span>
         </NuxtLink>
         <div class="header-actions">
           <button @click="toggleDarkMode" class="theme-toggle">
-            <!-- <ThemeSwitch
+            <ThemeSwitch
               :isDark="isDark"
-              width="10vw"
-              height="3.5vw"
-              :speed=6
-            /> -->
-            {{ isDark ? '☀️' : '🌙' }}
+              width="100%"
+              height="100%"
+              :speed="6"
+            />
           </button>
         </div>
       </div>
@@ -135,13 +136,19 @@ function updateHtmlClass() {
   border: none;
   background: rgba(0, 112, 243, 0.1);
   color: #0070f3;
-  padding: 0.75rem;
-  border-radius: 12px;
+  padding: 0;
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 1.2rem;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(0, 112, 243, 0.2);
+  width: 12vh;
+  height: 6vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
 }
 
 .theme-toggle:hover {
@@ -200,4 +207,5 @@ function updateHtmlClass() {
     padding-top: 70px;
   }
 }
+
 </style>

@@ -1,28 +1,26 @@
 <template>
-      <div class="flex items-center justify-center">
-        <div class="h-100% w-100% flex justify-center">
-          <Lottie
-            v-if="!isDark"
-            name="darktolight"
-            :autoplay="true"
-            :loop="false"
-            :width="props.width"
-            :height="props.height"
-            :speed="props.speed"
-            :key="'light'"
-          />
-          <Lottie
-            v-else
-            name="lighttodark"
-            :autoplay="true"
-            :loop="false"
-            :width="props.width"
-            :height="props.height"
-            :speed="props.speed"
-            :key="'dark'"
-          />
-        </div>
-      </div>
+  <div class="theme-switch-container">
+    <Lottie
+      v-if="!isDark"
+      name="darktolight"
+      :autoplay="true"
+      :loop="false"
+      :width="props.width"
+      :height="props.height"
+      :speed="props.speed"
+      :key="'light'"
+    />
+    <Lottie
+      v-else
+      name="lighttodark"
+      :autoplay="true"
+      :loop="false"
+      :width="props.width"
+      :height="props.height"
+      :speed="props.speed"
+      :key="'dark'"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -42,3 +40,15 @@ const props = withDefaults(defineProps<ThemeProps>(), {
 });
 
 </script>
+
+<style scoped>
+.theme-switch-container {
+  width: 100%;
+  height: 100%;
+  display: block;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+</style>
