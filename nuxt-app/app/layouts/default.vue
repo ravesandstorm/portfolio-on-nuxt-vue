@@ -26,6 +26,12 @@
         </NuxtLink>
         <div class="header-actions">
           <button @click="toggleDarkMode" class="theme-toggle">
+            <!-- <ThemeSwitch
+              :isDark="isDark"
+              width="10vw"
+              height="3.5vw"
+              :speed=6
+            /> -->
             {{ isDark ? '☀️' : '🌙' }}
           </button>
         </div>

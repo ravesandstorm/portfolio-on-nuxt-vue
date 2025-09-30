@@ -6,5 +6,10 @@ export default defineNuxtConfig({
   css: ['~/assets/main.css'],
   app: {
     baseURL: process?.env.NUXT_APP_BASE_URL || '/'  // fallback to root
-  }
+  },
+  modules: ['nuxt-lottie'],
+  lottie: {
+    // Optional: Customize the folder path. Default is 'assets/lottie'.
+    lottieFolder: '/assets/lottie',
+  },
 })
