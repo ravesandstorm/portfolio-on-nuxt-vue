@@ -1,11 +1,6 @@
-# Sample workflow for building and deploying a Nuxt site to GitHub Pages
-#
-# To get started with Nuxt see: https://nuxtjs.org/docs/get-started/installation
-#
 name: Deploy Nuxt site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
 
@@ -73,14 +68,12 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ./nuxt-app
       - name: Static HTML export with Nuxt
-        # run: ${{ steps.detect-package-manager.outputs.manager }} run generate
+        # run: ${{ steps.detect-package-manager.outputs.manager }} run generate # doesn't work 
         run: |
           echo "Using base URL: /${{ github.event.repository.name }}/"
           NUXT_APP_BASE_URL=/${{ github.event.repository.name }}/ \
           ${{ steps.detect-package-manager.outputs.manager }} run generate
         working-directory: ./nuxt-app
-        # env:
-        #   NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
