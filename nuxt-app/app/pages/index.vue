@@ -1,10 +1,23 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-// Load projects from API
-const { data: projects, pending: projectsLoading } = await useAsyncData('projects', () =>
+// Load projects from API, then default
+const { data: projectData, pending: projectsLoading, error: projectsError } = await useAsyncData('data', () => 
+  $fetch('/api/data')
+)
+
+const { data: defaultData, pending: defaultLoading } = await useAsyncData('projects', () => 
   $fetch('/api/projects')
 )
+
+const projects = computed(() => {
+  if (projectsError.value || !projectData.value) {
+    console.log('Mongo fetch failed.. switching to default')
+    return defaultData.value
+  }
+  console.log('Fetching from MongoDB')
+  return projectData.value
+})
 
 const config = useRuntimeConfig()
 console.log(config.public.customVar)

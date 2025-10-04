@@ -14,7 +14,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      customVar: process?.env.SECRET_TEST || '-1'
+      customVar: process?.env.SECRET_TEST || 'env load failed..',
+      mongodb_uri: process?.env.MONGODB_URI || 'fallback'
     }
   }
 })

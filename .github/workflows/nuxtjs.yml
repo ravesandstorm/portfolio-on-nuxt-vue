@@ -76,6 +76,7 @@ jobs:
         # run: ${{ steps.detect-package-manager.outputs.manager }} run generate # doesn't work 
         env:
           SECRET_TEST: ${{ secrets.SECRET_TEST }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: |
           echo "Using base URL: /${{ github.event.repository.name }}/"
           NUXT_APP_BASE_URL=/${{ github.event.repository.name }}/ \

@@ -1,10 +1,23 @@
 <script setup>
 const route = useRoute()
 
-// Load project data from API
-const { data: project } = await useAsyncData(`project-${route.params.id}`, () =>
+// Load project data from API, default to placeholder
+const { data: projectData, error: projectError } = await useAsyncData(`data-${route.params.id}`, () => 
+  $fetch(`/api/data/${route.params.id}`)
+)
+
+const { data: defaultData } = await useAsyncData(`project-${route.params.id}`, () =>
   $fetch(`/api/projects/${route.params.id}`)
 )
+
+const project = computed(() => {
+  if (projectError.value || !projectData.value) {
+    console.log('Mongo fetch failed.. switching to default')
+    return defaultData.value
+  }
+  console.log('Fetching from MongoDB')
+  return projectData.value
+})
 
 // Set page meta
 useHead({
