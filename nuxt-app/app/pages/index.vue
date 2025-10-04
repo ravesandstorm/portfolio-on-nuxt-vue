@@ -6,6 +6,9 @@ const { data: projects, pending: projectsLoading } = await useAsyncData('project
   $fetch('/api/projects')
 )
 
+const config = useRuntimeConfig()
+console.log(config.public.customVar)
+
 const sidebarOpen = ref(false)
 const mainContentLoading = ref(true)
 

@@ -12,4 +12,9 @@ export default defineNuxtConfig({
     // Optional: Customize the folder path. Default is 'assets/lottie'.
     lottieFolder: '/assets/lottie',
   },
+  runtimeConfig: {
+    public: {
+      customVar: process?.env.SECRET_TEST || '-1'
+    }
+  }
 })
