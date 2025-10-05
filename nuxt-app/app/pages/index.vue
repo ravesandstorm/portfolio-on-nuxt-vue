@@ -277,7 +277,7 @@ onMounted(() => {
 .sidebar-toggle {
   display: none;
   position: fixed;
-  top: 34.5%;
+  top: 30%;
   right: 1.5rem;
   transform: translateY(-50%);
   z-index: 1001;
@@ -354,7 +354,7 @@ onMounted(() => {
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 820px) {
   .portfolio {
     flex-direction: column;
   }
@@ -379,7 +379,7 @@ onMounted(() => {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 720px) {
   .main-section {
     padding: 0.5rem;
   }
@@ -404,12 +404,12 @@ onMounted(() => {
   }
 
   .hero {
-    min-height: 35vh;
+    min-height: 20vh;
     padding: 0.25rem;
   }
 
   .mobile-sidebar {
-    width: 100%;
+    width: 90%;
   }
 
   .sidebar-toggle.move-left {
@@ -610,14 +610,14 @@ onMounted(() => {
 }
 
 /* Responsive adjustments for skeleton */
-@media (max-width: 1024px) {
+@media (max-width: 820px) {
   .skeleton-container .hero {
     min-height: 50vh;
     padding: 1rem;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 720px) {
   .skeleton-container .hero {
     min-height: 40vh;
     padding: 0.5rem;
