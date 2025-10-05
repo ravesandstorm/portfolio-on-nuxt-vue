@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     await client.connect()
     const db = client.db('Project_DBs')
     const collection = db.collection('portfolio_projects')
-    const projects = await collection.find({}).toArray()
+    const projects = await collection.find({}).sort({id: 1}).toArray()
     return projects
 
   } catch (error) {
