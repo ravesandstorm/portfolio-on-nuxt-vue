@@ -6,7 +6,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-43853D?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![npm](https://img.shields.io/badge/npm-CB3837?logo=npm&logoColor=white)](https://www.npmjs.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ravesandstorm/portfolio-on-nuxt-vue/nuxtjs.yml?branch=main)](https://github.com/ravesandstorm/portfolio-on-nuxt-vue/actions)
+[![Deploy Nuxt site to Pages](https://github.com/ravesandstorm/portfolio-on-nuxt-vue/actions/workflows/nuxtjs.yml/badge.svg)](https://github.com/ravesandstorm/portfolio-on-nuxt-vue/actions/workflows/nuxtjs.yml)
 
 A modern, interactive portfolio website built using Nuxt.js and Vue.js, featuring dynamic animations, stateful dark mode, and flexible routing for multiple pages.
 
