@@ -36,8 +36,9 @@
   const sidebarOpen = ref(false)
   const mainContentLoading = ref(true)
 
-  onMounted(() => {
-    mainContentLoading.value = false
+  onMounted(async () => {
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    // mainContentLoading.value = false
   })
 
   const toggleSidebar = () => {
@@ -451,7 +452,7 @@
     background-position: -200px 0;
   }
   100% {
-    background-position: calc(200px + 100%) 0;
+    background-position: 200px 0;
   }
 }
 
@@ -489,9 +490,13 @@
 .skeleton-line {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200px 100%;
-  animation: skeleton-loading 1.5s infinite;
+  animation: skeleton-loading 1.5s infinite ease-out;
   border-radius: 4px;
   margin-bottom: 12px;
+
+  /* This syncs all animations */
+  background-attachment: fixed;
+  will-change: background-position;
 }
 
 .dark .skeleton-line {
@@ -560,7 +565,11 @@
   border-radius: 16px;
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200px 100%;
-  animation: skeleton-loading 1.5s infinite;
+  animation: skeleton-loading 1.5s infinite ease-out;
+
+  /* This syncs all animations */
+  background-attachment: fixed;
+  will-change: background-position;
 }
 
 .dark .skeleton-chip {
@@ -583,7 +592,11 @@
   border-radius: 8px;
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200px 100%;
-  animation: skeleton-loading 1.5s infinite;
+  animation: skeleton-loading 1.5s infinite ease-out;
+
+  /* This syncs all animations */
+  background-attachment: fixed;
+  will-change: background-position;
 }
 
 .dark .skeleton-button {
