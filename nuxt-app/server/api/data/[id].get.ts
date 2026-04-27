@@ -1,4 +1,5 @@
 import { connectToDatabase } from "../models/db"
+import { Project } from "../../types"
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')
@@ -13,7 +14,7 @@ export default defineEventHandler(async (event) => {
   const { collection } = await connectToDatabase();
 
   try {
-    const project = await collection.findOne({ id: id })
+    const project = await collection.findOne({ id: id }) as Project | null
 
     if (!project) {
       throw createError({

@@ -1,4 +1,5 @@
 import { connectToDatabase } from "../models/db"
+import { Project } from "../../types"
 
 export default defineEventHandler(async (event) => {
   const { collection } = await connectToDatabase();
@@ -6,7 +7,7 @@ export default defineEventHandler(async (event) => {
   try {
     const projects = await collection.find({ "title": { $exists: true } })
                                       .sort({ id: 1 })
-                                      .toArray()
+                                      .toArray() as Project[]
     return projects
 
   } catch (error) {

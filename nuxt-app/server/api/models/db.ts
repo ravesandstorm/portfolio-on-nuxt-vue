@@ -1,18 +1,8 @@
 import { Collection, MongoClient } from 'mongodb'
-
-interface Project {
-    id: string
-    title: string
-    description: string
-    image: string
-    technologies: string[]
-    github: string
-    demo: string
-    features: string[]
-}
+import { Project, About, TechGroup } from '../../types'
 
 let client: MongoClient | null = null
-let collection: Collection<Project> | null = null
+let collection: Collection<Project | About | TechGroup> | null = null
 
 export async function connectToDatabase() {
     if (client && collection) {
