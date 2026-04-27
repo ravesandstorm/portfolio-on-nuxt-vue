@@ -456,6 +456,18 @@
   }
 }
 
+.skeleton-button,
+.skeleton-chip,
+.skeleton-line {
+  background: linear-gradient(-45deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite ease-out;
+
+  /* This syncs all animations */
+  background-attachment: fixed;
+  will-change: background-position;
+}
+
 .skeleton-container {
   height: 100%;
   overflow-y: auto;
@@ -488,15 +500,8 @@
 }
 
 .skeleton-line {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200px 100%;
-  animation: skeleton-loading 1.5s infinite ease-out;
   border-radius: 4px;
   margin-bottom: 12px;
-
-  /* This syncs all animations */
-  background-attachment: fixed;
-  will-change: background-position;
 }
 
 .dark .skeleton-line {
@@ -563,13 +568,6 @@
   height: 32px;
   width: 80px;
   border-radius: 16px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200px 100%;
-  animation: skeleton-loading 1.5s infinite ease-out;
-
-  /* This syncs all animations */
-  background-attachment: fixed;
-  will-change: background-position;
 }
 
 .dark .skeleton-chip {
@@ -590,18 +588,11 @@
   height: 60px;
   width: 120px;
   border-radius: 8px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200px 100%;
-  animation: skeleton-loading 1.5s infinite ease-out;
-
-  /* This syncs all animations */
-  background-attachment: fixed;
-  will-change: background-position;
 }
 
 .dark .skeleton-button {
   background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
-  background-size: 200px 100%;
+  background-size: 200% 100%;
 }
 
 /* Sidebar skeleton styles */
