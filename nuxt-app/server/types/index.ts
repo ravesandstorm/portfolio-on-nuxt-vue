@@ -10,8 +10,11 @@ export interface Project {
 }
 
 export interface About {
-    about_doc: boolean
-    data: string
+    about_doc?: boolean
+    main_text: string
+    role_text: string
+    sub_text: string
+    data?: string
 }
 
 export interface TechGroup {

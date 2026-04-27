@@ -1,22 +1,31 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import type { About, Project } from '~~/server/types'
 
-// Load projects from API, then default
-const { data: projectData, pending: projectsLoading, error: projectsError } = await useAsyncData('data', () => 
-  $fetch('/api/data')
-)
+// useAsyncData is not required, as this is optimized for SSG and will be generated at build time.
 
-const { data: defaultData, pending: defaultLoading } = await useAsyncData('projects', () => 
-  $fetch('/api/projects')
-)
+// Load projects from API, then default API
+const [ projectData, defaultProjectData, aboutResponse ] = await Promise.all([
+  await $fetch<Project[]>('/api/data'),
+  await $fetch<Project[]>('/api/projects'),
+  await $fetch<About>('/api/data/about')
+])
 
-const projects = computed(() => {
-  if (projectsError.value || !projectData.value) {
-    console.log('Mongo fetch failed.. switching to default')
-    return defaultData.value
+let aboutData = aboutResponse ? aboutResponse : null
+let projects: Project[] = projectData ? projectData : []
+
+if (!aboutData) {
+  console.warn('Failed to fetch about data')
+  aboutData = {
+    "main_text": "Hi, I'm Satvik!",
+    "role_text": "Full Stack and AI/ML Developer",
+    "sub_text": "Check out my projects! --->"
   }
-  return projectData.value
-})
+}
+if (!projects) {
+  console.warn('Failed to fetch project data, using default projects')
+  projects = defaultProjectData
+}
 
 const config = useRuntimeConfig()
 console.log(config.public.customVar)
@@ -38,7 +47,7 @@ const closeSidebar = () => {
 
 // Close sidebar when clicking outside on mobile
 onMounted(() => {
-  const handleClickOutside = (event) => {
+  const handleClickOutside = (event: any) => {
     if (window.innerWidth <= 1024 && sidebarOpen.value) {
       const mobileOverlay = document.querySelector('.mobile-sidebar-overlay')
       const mobileSidebar = document.querySelector('.mobile-sidebar')
@@ -58,6 +67,13 @@ onMounted(() => {
   return () => {
     document.removeEventListener('click', handleClickOutside)
   }
+})
+
+useHead({
+  title: "Satvik's Portfolio",
+  meta: [
+    { name: 'description', content: "Showcasing my projects and skills as a developer." }
+  ]
 })
 </script>
 
@@ -104,7 +120,7 @@ onMounted(() => {
         <section class="hero">
           <div class="hero-content">
             <SplitText
-              text="Hi, I'm Satvik!"
+              :text="aboutData.main_text"
               :delay="75"
               :duration="1"
               className="hero-title"
@@ -112,7 +128,7 @@ onMounted(() => {
               textAlign="center"
             />
             <SplitText
-              text="AI/ML and Full Stack Developer"
+              :text="aboutData.role_text"
               :delay="80"
               :duration="0.8"
               className="hero-subtitle"
@@ -120,7 +136,7 @@ onMounted(() => {
               textAlign="center"
             />
             <SplitText
-              text="Check out my projects! --->"
+              :text="aboutData.sub_text"
               :delay="200"
               :duration="2"
               className="hero-checkprojects"
