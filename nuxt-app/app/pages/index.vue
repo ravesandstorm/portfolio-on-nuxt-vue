@@ -5,14 +5,12 @@ import type { About, Project } from '~~/server/types'
 // useAsyncData is not required, as this is optimized for SSG and will be generated at build time.
 
 // Load projects from API, then default API
-const [ projectData, defaultProjectData, aboutResponse ] = await Promise.all([
-  await $fetch<Project[]>('/api/data'),
-  await $fetch<Project[]>('/api/projects'),
-  await $fetch<About>('/api/data/about')
-])
+const { data: projectData } = await useFetch<Project[]>('/api/data')
+const { data: defaultProjectData } = await useFetch<Project[]>('/api/projects')
+const { data: aboutResponse } = await useFetch<About>('/api/data/about')
 
-let aboutData = aboutResponse ? aboutResponse : null
-let projects: Project[] = projectData ? projectData : []
+let aboutData = aboutResponse.value ? aboutResponse.value : null
+let projects: Project[] = projectData.value ? projectData.value : []
 
 if (!aboutData) {
   console.warn('Failed to fetch about data')
@@ -24,7 +22,7 @@ if (!aboutData) {
 }
 if (!projects) {
   console.warn('Failed to fetch project data, using default projects')
-  projects = defaultProjectData
+  projects = defaultProjectData.value ? defaultProjectData.value : []
 }
 
 const config = useRuntimeConfig()

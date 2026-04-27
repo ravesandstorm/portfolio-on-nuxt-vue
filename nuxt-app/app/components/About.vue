@@ -52,13 +52,11 @@
   import type { About, TechGroup } from '~~/server/types';
   import techCategoriesFallback from '../public/techStack.json';
 
-  const [ techGroupResponse, aboutResponse ] = await Promise.all([
-    await $fetch<TechGroup[]>('/api/data/techstack'),
-    await $fetch<About>('/api/data/about')
-  ]);
+  const { data: techGroupResponse } = await useFetch<TechGroup[]>('/api/data/techstack');
+  const { data: aboutResponse } = await useFetch<About>('/api/data/about');
     
-  let techCategories: TechGroup[] = techGroupResponse ? techGroupResponse : [];
-  let aboutText = aboutResponse ? aboutResponse.data : null;
+  let techCategories: TechGroup[] = techGroupResponse.value ? techGroupResponse.value : [];
+  let aboutText = aboutResponse.value ? aboutResponse.value.data : null;
 
   if (!techCategories) {
     console.warn('Failed to fetch tech stack data, using fallback');
