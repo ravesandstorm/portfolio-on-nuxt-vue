@@ -40,13 +40,13 @@
 </template>
 
 <script setup lang="ts">
-  import techCategoriesFallback from '../public/techStack.json'
-  import type { TechGroup } from '~~/server/types'
+  import techCategoriesFallback from '../public/techStack.json';
+  import type { TechGroup } from '~~/server/types';
 
-  let techCategories: TechGroup[] = [];
+  const techGroupResponse = await $fetch<TechGroup[]>('/api/data/techstack');
 
-  const techGroupResponse = await $fetch<TechGroup[]>('/api/data/techstack')
-  if (!techGroupResponse) {
+  let techCategories: TechGroup[] = techGroupResponse ? techGroupResponse : [];
+  if (!techCategories) {
     console.warn('Failed to fetch tech stack data, using fallback');
     techCategories = techCategoriesFallback;
   }
