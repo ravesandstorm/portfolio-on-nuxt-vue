@@ -1,13 +1,14 @@
-<script setup>
+<script setup lang="ts">
+import type { Project } from '~~/server/types'
 const route = useRoute()
 
 // Load project data from API, default to placeholder
 const { data: projectData, error: projectError } = await useAsyncData(`data-${route.params.id}`, () => 
-  $fetch(`/api/data/${route.params.id}`)
+  $fetch<Project>(`/api/data/${route.params.id}`)
 )
 
 const { data: defaultData } = await useAsyncData(`project-${route.params.id}`, () =>
-  $fetch(`/api/projects/${route.params.id}`)
+  $fetch<Project>(`/api/projects/${route.params.id}`)
 )
 
 const project = computed(() => {
