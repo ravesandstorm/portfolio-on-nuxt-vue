@@ -11,14 +11,14 @@ export default defineEventHandler(async (event) => {
   }
 
   const config = useRuntimeConfig()
-  const client = new MongoClient(config.public.mongodb_uri)
+  const client = new MongoClient(config.mongodb_uri)
 
   try {
     await client.connect()
     const db = client.db('Project_DBs')
     const collection = db.collection('portfolio_projects')
 
-    const project = await collection.findOne({ id: parseInt(id) })
+    const project = await collection.findOne({ id: id })
 
     if (!project) {
       throw createError({
