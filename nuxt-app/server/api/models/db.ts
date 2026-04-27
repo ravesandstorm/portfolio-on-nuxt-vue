@@ -27,3 +27,18 @@ export async function connectToDatabase() {
         })
     }
 }
+
+export async function closeDatabaseConnection() {
+    if (client) {
+        try {
+            console.log('Closing MongoDB connection...')
+            await client.close()
+            console.log('MongoDB connection closed')
+        } catch (error) {
+            console.error('Error closing MongoDB connection:', error)
+        } finally {
+            client = null
+            collection = null
+        }
+    }
+}
