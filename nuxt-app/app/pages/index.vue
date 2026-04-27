@@ -1,78 +1,83 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import type { About, Project } from '~~/server/types'
+  import { ref, onMounted } from 'vue'
+  import type { About, Project, TechGroup } from '~~/server/types'
 
-// useAsyncData is not required, as this is optimized for SSG and will be generated at build time.
+  // Load projects from API, then default to empty array if fetch fails
+  // Maintain all endpoints on front page for SSG optimization (since all calls are done at once)
+  const { data: projectData } = await useFetch<Project[]>('/api/data')
+  const { data: aboutResponse } = await useFetch<About>('/api/data/about')
+  const { data: defaultProjectData } = await useFetch<Project[]>('/api/projects')
+  const { data: techCategories } = await useFetch<TechGroup[]>('/api/data/techstack')
 
-// Load projects from API, then default API
-const { data: projectData } = await useFetch<Project[]>('/api/data')
-const { data: defaultProjectData } = await useFetch<Project[]>('/api/projects')
-const { data: aboutResponse } = await useFetch<About>('/api/data/about')
-
-let aboutData = aboutResponse.value ? aboutResponse.value : null
-let projects: Project[] = projectData.value ? projectData.value : []
-
-if (!aboutData) {
-  console.warn('Failed to fetch about data')
-  aboutData = {
-    "main_text": "Hi, I'm Satvik!",
-    "role_text": "Full Stack and AI/ML Developer",
-    "sub_text": "Check out my projects! --->"
+  let projects: Project[] = []
+  if (projectData.value && projectData.value.length > 0) {
+    projects = projectData.value
+  } else if (defaultProjectData.value) {
+    projects = defaultProjectData.value
+  } else {
+    projects = []
   }
-}
-if (!projects) {
-  console.warn('Failed to fetch project data, using default projects')
-  projects = defaultProjectData.value ? defaultProjectData.value : []
-}
 
-const config = useRuntimeConfig()
-console.log(config.public.customVar)
-
-const sidebarOpen = ref(false)
-const mainContentLoading = ref(true)
-
-onMounted(() => {
-  mainContentLoading.value = false
-})
-
-const toggleSidebar = () => {
-  sidebarOpen.value = !sidebarOpen.value
-}
-
-const closeSidebar = () => {
-  sidebarOpen.value = false
-}
-
-// Close sidebar when clicking outside on mobile
-onMounted(() => {
-  const handleClickOutside = (event: any) => {
-    if (window.innerWidth <= 1024 && sidebarOpen.value) {
-      const mobileOverlay = document.querySelector('.mobile-sidebar-overlay')
-      const mobileSidebar = document.querySelector('.mobile-sidebar')
-      const toggleButton = document.querySelector('.sidebar-toggle')
-
-      // Close if clicking on overlay but not on sidebar or toggle button
-      if (mobileOverlay && mobileOverlay.contains(event.target) &&
-          !mobileSidebar?.contains(event.target) &&
-          !toggleButton?.contains(event.target)) {
-        sidebarOpen.value = false
-      }
+  let aboutData: About | null = null
+  if (aboutResponse.value) {
+    aboutData = aboutResponse.value
+  }
+  else {
+    aboutData = {
+      "main_text": "Hi, I'm Satvik!",
+      "role_text": "Full Stack and AI/ML Developer",
+      "sub_text": "Check out my projects! --->"
     }
   }
 
-  document.addEventListener('click', handleClickOutside)
+  const config = useRuntimeConfig()
+  console.log(config.public.customVar)
 
-  return () => {
-    document.removeEventListener('click', handleClickOutside)
+  const sidebarOpen = ref(false)
+  const mainContentLoading = ref(true)
+
+  onMounted(() => {
+    mainContentLoading.value = false
+  })
+
+  const toggleSidebar = () => {
+    sidebarOpen.value = !sidebarOpen.value
   }
-})
 
-useHead({
-  title: "Satvik's Portfolio",
-  meta: [
-    { name: 'description', content: "Showcasing my projects and skills as a developer." }
-  ]
-})
+  const closeSidebar = () => {
+    sidebarOpen.value = false
+  }
+
+  // Close sidebar when clicking outside on mobile
+  onMounted(() => {
+    const handleClickOutside = (event: any) => {
+      if (window.innerWidth <= 1024 && sidebarOpen.value) {
+        const mobileOverlay = document.querySelector('.mobile-sidebar-overlay')
+        const mobileSidebar = document.querySelector('.mobile-sidebar')
+        const toggleButton = document.querySelector('.sidebar-toggle')
+
+        // Close if clicking on overlay but not on sidebar or toggle button
+        if (mobileOverlay && mobileOverlay.contains(event.target) &&
+            !mobileSidebar?.contains(event.target) &&
+            !toggleButton?.contains(event.target)) {
+          sidebarOpen.value = false
+        }
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  })
+
+  useHead({
+    title: "Satvik's Portfolio",
+    meta: [
+      { name: 'description', content: "Showcasing my projects and skills as a developer." }
+    ]
+  })
 </script>
 
 <template>
@@ -118,7 +123,7 @@ useHead({
         <section class="hero">
           <div class="hero-content">
             <SplitText
-              :text="aboutData.main_text"
+              :text="aboutData?.main_text || ''"
               :delay="75"
               :duration="1"
               className="hero-title"
@@ -126,7 +131,7 @@ useHead({
               textAlign="center"
             />
             <SplitText
-              :text="aboutData.role_text"
+              :text="aboutData?.role_text || ''"
               :delay="80"
               :duration="0.8"
               className="hero-subtitle"
@@ -134,7 +139,7 @@ useHead({
               textAlign="center"
             />
             <SplitText
-              :text="aboutData.sub_text"
+              :text="aboutData?.sub_text || ''"
               :delay="200"
               :duration="2"
               className="hero-checkprojects"
@@ -145,10 +150,10 @@ useHead({
         </section>
 
         <!-- About section -->
-        <About />
+        <About :aboutData="aboutData" :techStack="techCategories"/>
 
         <!-- Tech stack -->
-        <TechStack />
+        <TechStack :techCategories="techCategories" />
 
         <!-- Social links -->
         <SocialLinks />
@@ -157,13 +162,13 @@ useHead({
 
     <!-- Desktop Sidebar -->
     <div class="sidebar-section desktop-sidebar">
-      <Sidebar :posts="projects" />
+      <Sidebar :posts="projects || []" />
     </div>
 
     <!-- Mobile Sidebar Overlay -->
     <div class="mobile-sidebar-overlay" :class="{ active: sidebarOpen }" @click="closeSidebar">
       <div class="mobile-sidebar" :class="{ open: sidebarOpen }" @click.stop>
-        <Sidebar :posts="projects" />
+        <Sidebar :posts="projects || []" />
       </div>
     </div>
 
