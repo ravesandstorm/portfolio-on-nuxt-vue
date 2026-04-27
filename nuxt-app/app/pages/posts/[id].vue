@@ -15,7 +15,6 @@ const project = computed(() => {
     console.log('Mongo fetch failed.. switching to default')
     return defaultData.value
   }
-  console.log('Fetching from MongoDB')
   return projectData.value
 })
 
