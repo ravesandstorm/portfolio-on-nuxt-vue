@@ -14,7 +14,8 @@ export default defineEventHandler(async (event) => {
   const { collection } = await connectToDatabase();
 
   try {
-    const project = await collection.findOne({ id: id }) as Project | null
+    // Filter by existence of title field and ensure id is a integer! (db schema)
+    const project = await collection.findOne({ 'title': { $exists: true }, id: parseInt(id) })
 
     if (!project) {
       throw createError({
