@@ -10,10 +10,9 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const { client, db } = await connectToDatabase();
+  const { collection } = await connectToDatabase();
 
   try {
-    const collection = db.collection('portfolio_projects')
     const project = await collection.findOne({ id: id })
 
     if (!project) {
@@ -30,7 +29,5 @@ export default defineEventHandler(async (event) => {
       statusCode: 500,
       statusMessage: 'Database query failed'
     })
-  } finally {
-    await client.close()
   }
 })

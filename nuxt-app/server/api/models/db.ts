@@ -1,21 +1,34 @@
-import { Db, MongoClient } from 'mongodb'
+import { Collection, MongoClient } from 'mongodb'
+
+interface Project {
+    id: string
+    title: string
+    description: string
+    image: string
+    technologies: string[]
+    github: string
+    demo: string
+    features: string[]
+}
 
 let client: MongoClient | null = null
-let db: Db | null = null
+let collection: Collection<Project> | null = null
 
 export async function connectToDatabase() {
-    if (client && db) {
+    if (client && collection) {
         console.log('Using existing MongoDB client instance')
-        return { client, db }
+        return { collection }
     }
 
     const config = useRuntimeConfig()
     client = new MongoClient(config.mongodb_uri)
 
     try {
+        console.log('Connecting to MongoDB...')
         await client.connect()
-        db = client.db('Project_DBs')
-        return { client, db }
+        const db = client.db('Project_DBs')
+        collection = db.collection('portfolio_projects')
+        return { collection }
     } catch (error) {
         console.error('Database connection failed:', error)
         throw createError({

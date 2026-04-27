@@ -1,11 +1,12 @@
 import { connectToDatabase } from "../models/db"
 
 export default defineEventHandler(async (event) => {
-  const { client, db } = await connectToDatabase();
+  const { collection } = await connectToDatabase();
 
   try {
-    const collection = db.collection('portfolio_projects')
-    const projects = await collection.find({}).sort({id: 1}).toArray()
+    const projects = await collection.find({ "title": { $exists: true } })
+                                      .sort({ id: 1 })
+                                      .toArray()
     return projects
 
   } catch (error) {
@@ -13,7 +14,5 @@ export default defineEventHandler(async (event) => {
       statusCode: 500,
       statusMessage: 'Failed to load projects'
     })
-  } finally {
-    await client.close()
   }
 })
