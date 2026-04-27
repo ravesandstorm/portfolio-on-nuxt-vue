@@ -39,8 +39,18 @@
   </section>
 </template>
 
-<script setup>
-  import techCategories from '../public/techStack.json'
+<script setup lang="ts">
+  import techCategoriesFallback from '../public/techStack.json'
+  import type { TechGroup } from '~~/server/types'
+
+  let techCategories: TechGroup[] = [];
+
+  const techGroupResponse = await $fetch<TechGroup[]>('/api/data/techstack')
+  if (!techGroupResponse) {
+    console.warn('Failed to fetch tech stack data, using fallback');
+    techCategories = techCategoriesFallback;
+  }
+
 </script>
 
 <style scoped>
