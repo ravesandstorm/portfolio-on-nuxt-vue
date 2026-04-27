@@ -38,7 +38,7 @@
 
   onMounted(async () => {
     await new Promise(resolve => setTimeout(resolve, 1500))
-    // mainContentLoading.value = false
+    mainContentLoading.value = false
   })
 
   const toggleSidebar = () => {
