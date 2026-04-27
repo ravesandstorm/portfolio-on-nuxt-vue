@@ -14,7 +14,7 @@
       
       <div class="about-description">
         <SplitText 
-          text="I'm a passionate developer who loves creating beautiful and functional web experiences. With expertise in modern technologies and a keen eye for design, I bring ideas to life through code." 
+          :text="aboutText"
           :delay="30"
           :duration="0.6"
           className="about-text"
@@ -48,14 +48,32 @@
   </section>
 </template>
 
-<script setup>
-import techCategories from '../public/techStack.json'
+<script setup lang="ts">
+  import type { About, TechGroup } from '~~/server/types';
+  import techCategoriesFallback from '../public/techStack.json'
 
-const highlights = techCategories.map(category => ({
-    title: category.name,
-    description: category.technologies.map(tech => tech.name).join(', ')
-  })
-);
+  const [ techGroupResponse, aboutResponse ] = await Promise.all([
+    await $fetch<TechGroup[]>('/api/data/techstack'),
+    await $fetch<About>('/api/data/about')
+    ])
+    
+  let techCategories: TechGroup[] = [];
+  let aboutText = aboutResponse ? aboutResponse.data : null;
+
+  if (!techGroupResponse) {
+    console.warn('Failed to fetch tech stack data, using fallback');
+    techCategories = techCategoriesFallback;
+  }
+  if (!aboutText) {
+    console.warn('Failed to fetch about data, using default values');
+    aboutText = "I'm a passionate developer who loves creating beautiful and functional web experiences. With expertise in modern technologies and a keen eye for design, I bring ideas to life through code.";
+  }
+
+  const highlights = techCategories.map(category => ({
+      title: category.name,
+      description: category.technologies.map(tech => tech.name).join(', ')
+    })
+  );
 
 </script>
 
