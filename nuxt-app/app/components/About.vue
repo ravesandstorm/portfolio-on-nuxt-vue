@@ -14,7 +14,7 @@
       
       <div class="about-description">
         <SplitText 
-          :text="aboutText"
+          :text="aboutText || ''"
           :delay="30"
           :duration="0.6"
           className="about-text"
@@ -52,26 +52,24 @@
   import type { About, TechGroup } from '~~/server/types';
   import techCategoriesFallback from '../public/techStack.json';
 
-  const { data: techGroupResponse } = await useFetch<TechGroup[]>('/api/data/techstack');
-  const { data: aboutResponse } = await useFetch<About>('/api/data/about');
-    
-  let techCategories: TechGroup[] = techGroupResponse.value ? techGroupResponse.value : [];
-  let aboutText = aboutResponse.value ? aboutResponse.value.data : null;
+  const props = defineProps<{
+    aboutData?: About,
+    techStack?: TechGroup[]
+  }>();
 
-  if (!techCategories) {
-    console.warn('Failed to fetch tech stack data, using fallback');
-    techCategories = techCategoriesFallback;
-  }
-  if (!aboutText) {
-    console.warn('Failed to fetch about data, using default values');
-    aboutText = "I'm a passionate developer who loves creating beautiful and functional web experiences. With expertise in modern technologies and a keen eye for design, I bring ideas to life through code.";
-  }
+  const aboutText = computed(() => {
+    return props.aboutData?.data || "";
+  });
 
-  const highlights = techCategories.map(category => ({
+  const highlights = computed(() => {
+    if (!props.techStack) return [];
+
+    const categories = props.techStack.length > 0 ? props.techStack : techCategoriesFallback as TechGroup[];
+    return categories.map((category: any) => ({
       title: category.name,
-      description: category.technologies.map(tech => tech.name).join(', ')
-    })
-  );
+      description: category.technologies?.map((tech: any) => tech.name).join(', ') || ''
+    }));
+  });
 
 </script>
 

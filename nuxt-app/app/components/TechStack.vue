@@ -43,14 +43,15 @@
   import techCategoriesFallback from '../public/techStack.json';
   import type { TechGroup } from '~~/server/types';
 
-  const { data: techGroupResponse } = await useFetch<TechGroup[]>('/api/data/techstack');
+  const props = defineProps<{
+    techCategories?: TechGroup[]
+  }>();
 
-  let techCategories: TechGroup[] = techGroupResponse.value ? techGroupResponse.value : [];
-  if (!techCategories) {
-    console.warn('Failed to fetch tech stack data, using fallback');
-    techCategories = techCategoriesFallback;
-  }
+  const techCategories = computed(() => {
+    if (!props.techCategories) return [];
 
+    return props.techCategories.length > 0 ? props.techCategories : techCategoriesFallback as TechGroup[];
+  });
 </script>
 
 <style scoped>
