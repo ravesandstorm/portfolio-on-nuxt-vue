@@ -1,12 +1,9 @@
-import { MongoClient } from 'mongodb'
+import { connectToDatabase } from "../models/db"
 
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig()
-  const client = new MongoClient(config.mongodb_uri)
+  const { client, db } = await connectToDatabase();
 
   try {
-    await client.connect()
-    const db = client.db('Project_DBs')
     const collection = db.collection('portfolio_projects')
     const projects = await collection.find({}).sort({id: 1}).toArray()
     return projects
